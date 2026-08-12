@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>PI Buddy AI proxy</title></head>
+<body style="font-family:sans-serif;max-width:520px;margin:60px auto;line-height:1.6">
+  <h2>PI Buddy AI proxy</h2>
+  <p>This is a serverless proxy that holds an Anthropic API key so PI Buddy's AI features (AI Diagnosis, AI Excel insight) can work without embedding a key in the static HTML file. It has no UI of its own.</p>
+  <p>Check status: <a href="/api/buddy">/api/buddy</a> (GET)</p>
+  <p>Configure by setting <code>ANTHROPIC_API_KEY</code> (and optionally
+    <code>PIBUDDY_APP_SECRET</code>) under Project → Settings → Environment Variables, then redeploy.</p>
+  <p>In PI Buddy, click the ⚙️ button and paste this deployment's URL + <code>/api/buddy</code> as the Proxy URL.</p>
+</body>
+</html>
