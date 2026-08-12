@@ -39,6 +39,41 @@ module.exports = async (req, res) => {
 
   if (req.method === "GET") {
     // simple health check — visit the URL in a browser to confirm the key is set
+    // add ?test=1 to make PI Buddy's proxy actually call Anthropic with a tiny
+    // request, so you can see Anthropic's real rejection reason instead of
+    // just a bare status code.
+    if (req.query && req.query.test) {
+      if (!apiKey) {
+        res.status(200).json({ status: "no-key", message: "ANTHROPIC_API_KEY is empty on this deployment." });
+        return;
+      }
+      try {
+        const testRes = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": apiKey,
+            "anthropic-version": "2023-06-01",
+          },
+          body: JSON.stringify({
+            model: "claude-sonnet-4-6",
+            max_tokens: 10,
+            messages: [{ role: "user", content: "Reply with just: PONG" }],
+          }),
+        });
+        const testData = await testRes.json();
+        res.status(200).json({
+          status: testRes.ok ? "live-call-succeeded" : "live-call-failed",
+          anthropicStatus: testRes.status,
+          anthropicResponse: testData,
+          keyPreview: apiKey.slice(0, 7) + "..." + apiKey.slice(-4),
+          keyLength: apiKey.length,
+        });
+      } catch (err) {
+        res.status(200).json({ status: "fetch-threw", message: err.message });
+      }
+      return;
+    }
     res.status(200).json({
       status: "ok",
       anthropicKeyConfigured: !!apiKey,
