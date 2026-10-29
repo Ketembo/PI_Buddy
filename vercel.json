@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/pdfs/:file", "destination": "/Upload_2_PDF_Guides/pdfs/:file" },
+    { "source": "/:file.xlsx", "destination": "/Upload_3_Excel_Templates/:file.xlsx" }
+  ]
+}
