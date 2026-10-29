@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Process Improvement Tools Matrix</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1F3C;
+  --blue:#1A4480;
+  --blue2:#2E5FA3;
+  --teal:#085041;
+  --teal2:#1D9E75;
+  --amber:#BA7517;
+  --purple:#534AB7;
+  --coral:#712B13;
+  --pink:#72243E;
+  --mid-blue:#0C447C;
+}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:13px;color:#1a1a1a;background:#0D1F3C;min-height:100vh}
+
+/* ─── PAGE BACKGROUND ─────────────────────────────────────────── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(42,90,160,.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(8,80,65,.3) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 90% 15%, rgba(83,74,183,.2) 0%, transparent 50%);
+  background-color:#0D1F3C;
+  pointer-events:none;
+  z-index:0;
+}
+/* SVG dot-grid pattern on body */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:28px 28px;
+  pointer-events:none;
+  z-index:0;
+}
+
+.page{max-width:1440px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+/* ─── HERO HEADER ─────────────────────────────────────────────── */
+.header{
+  position:relative;
+  border-radius:16px;
+  padding:0;
+  margin-bottom:20px;
+  overflow:hidden;
+  background:#0D2B5E;
+  border:1px solid rgba(255,255,255,.1);
+}
+.header-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(135deg, #0D2B5E 0%, #183D7A 40%, #1A4E6A 100%);
+}
+/* Geometric pattern overlay - pure CSS/SVG inline */
+.header-pattern{
+  position:absolute;inset:0;
+  opacity:.18;
+  background-image:
+    linear-gradient(30deg, rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(150deg, rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42,100,200,.08) 1px, transparent 1px);
+  background-size:60px 60px, 60px 60px, 30px 30px;
+}
+.header-glow{
+  position:absolute;
+  top:-60px;right:-60px;
+  width:380px;height:380px;
+  background:radial-gradient(circle, rgba(83,74,183,.45) 0%, transparent 70%);
+  pointer-events:none;
+}
+.header-glow2{
+  position:absolute;
+  bottom:-80px;left:10%;
+  width:300px;height:300px;
+  background:radial-gradient(circle, rgba(29,158,117,.35) 0%, transparent 70%);
+  pointer-events:none;
+}
+.header-content{
+  position:relative;z-index:2;
+  display:flex;align-items:center;gap:24px;
+  padding:28px 32px;
+}
+.header-icon-wrap{
+  flex-shrink:0;
+  width:72px;height:72px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;
+}
+.header-text{flex:1}
+.header-text h1{
+  font-size:24px;font-weight:700;color:#fff;
+  margin-bottom:6px;letter-spacing:-.4px;line-height:1.2;
+}
+.header-text h1 span{color:#7FD4C1;font-style:italic}
+.header-text p{font-size:12.5px;color:rgba(255,255,255,.72);line-height:1.6;max-width:680px}
+.header-badges{
+  display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;
+}
+.hbadge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;
+  border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.08);white-space:nowrap;
+}
+.header-stats{
+  flex-shrink:0;
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end;
+}
+.hstat{text-align:center;padding:10px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;min-width:70px}
+.hstat-num{font-size:22px;font-weight:700;color:#fff;line-height:1}
+.hstat-label{font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.header-stats-row{display:flex;gap:8px}
+
+/* ─── CONTROLS ─────────────────────────────────────────────────── */
+.controls-bar{
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  padding:12px 16px;
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  margin-bottom:14px;
+}
+.search-wrap{
+  position:relative;flex:1;min-width:200px;
+}
+.search-icon{
+  position:absolute;left:10px;top:50%;transform:translateY(-50%);
+  font-size:14px;color:rgba(255,255,255,.45);pointer-events:none;
+}
+.search-box{
+  width:100%;padding:8px 12px 8px 34px;
+  border:1.5px solid rgba(255,255,255,.18);
+  border-radius:8px;font-size:13px;font-family:'Segoe UI',Arial,sans-serif;
+  background:rgba(255,255,255,.09);color:#fff;
+}
+.search-box::placeholder{color:rgba(255,255,255,.4)}
+.search-box:focus{outline:none;border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.13)}
+.pills{display:flex;flex-wrap:wrap;gap:5px}
+.pill{
+  padding:5px 13px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.75);
+  transition:all .15s;white-space:nowrap;user-select:none;
+}
+.pill:hover{background:rgba(255,255,255,.15);color:#fff}
+.pill.active{border-color:transparent;color:#fff}
+.pill[data-cat="-1"].active{background:rgba(255,255,255,.25)}
+.pill[data-cat="0"].active{background:#534AB7}
+.pill[data-cat="1"].active{background:#085041}
+.pill[data-cat="2"].active{background:#BA7517}
+.pill[data-cat="3"].active{background:#0C447C}
+.pill[data-cat="4"].active{background:#712B13}
+.pill[data-cat="5"].active{background:#72243E}
+
+/* ─── LEGEND ────────────────────────────────────────────────────── */
+.legend-bar{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;
+  padding:10px 16px;
+  display:flex;gap:10px;flex-wrap:wrap;
+  font-size:11px;margin-bottom:14px;align-items:center;
+}
+.leg-item{display:flex;align-items:center;gap:6px;font-weight:600;color:rgba(255,255,255,.78)}
+.leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.legend-hint{
+  margin-left:auto;font-size:11px;font-weight:700;
+  color:#7FD4C1;display:flex;align-items:center;gap:5px;white-space:nowrap;
+}
+.legend-hint::before{content:'▸';font-size:13px}
+
+/* ─── MATRIX CONTAINER ───────────────────────────────────────────── */
+.matrix-wrap{
+  overflow-x:auto;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:#fff;
+  box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06);
+}
+table{border-collapse:collapse;min-width:900px;width:100%}
+th,td{border:0.5px solid #e5e5e5;padding:0}
+
+/* Department column */
+.th-dept{
+  font-size:9px;font-weight:800;padding:6px 8px;
+  background:linear-gradient(180deg,#f8f8f6 0%,#efefed 100%);
+  color:#1a1a1a;width:130px;min-width:130px;max-width:130px;
+  vertical-align:bottom;text-transform:uppercase;letter-spacing:.06em;line-height:1.3;
+  border-bottom:2px solid #ddd;
+}
+/* Problem column */
+.th-prob{
+  font-size:9px;padding:5px 9px;
+  background:#fafaf8;color:#444;
+  width:148px;min-width:148px;max-width:148px;
+  vertical-align:middle;white-space:normal;line-height:1.35;
+  border-bottom:2px solid #ddd;
+}
+/* Tool header */
+.th-tool{
+  font-size:7.5px;font-weight:700;
+  background:#f5f5f2;color:#555;
+  white-space:nowrap;writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  max-height:110px;vertical-align:bottom;text-align:left;
+  width:25px;min-width:25px;max-width:25px;
+  transition:background .15s;position:relative;padding:0;
+}
+.th-tool:hover{background:#e8e8e8}
+.th-tool.hl{background:#E6F1FB;color:#0C447C}
+.th-tool-inner{
+  display:block;width:100%;height:100%;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  padding:4px 3px;cursor:pointer;color:inherit;text-decoration:none;white-space:nowrap;
+}
+.th-tool-inner:hover{text-decoration:underline;color:#2E75B6}
+
+/* Department row label */
+.dept-label{
+  font-size:9px;font-weight:800;
+  padding:5px 8px;
+  vertical-align:middle;text-align:left;line-height:1.35;color:#fff;
+  position:relative;overflow:hidden;
+}
+.dept-label-inner{position:relative;z-index:1}
+/* Department label background pattern */
+.dept-label::after{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.15) 1px,transparent 1px);
+  background-size:10px 10px;
+}
+
+/* Data cells */
+.td-mark{
+  padding:0;text-align:center;
+  width:25px;min-width:25px;max-width:25px;position:relative;
+}
+.mark-P{background:#EEEDFE}
+.mark-Q{background:#E1F5EE}
+.mark-S{background:#FFF3E0}
+.mark-M{background:#E3EEF9}
+.mark-C{background:#FAECE7}
+.mark-R{background:#FEF0F5}
+
+.dot{
+  display:block;width:100%;height:100%;
+  padding:2px 0;text-align:center;font-size:12px;line-height:1.7;
+  transition:transform .12s, filter .12s;cursor:pointer;user-select:none;
+}
+.td-mark[data-has="true"]:hover .dot{transform:scale(1.55);filter:brightness(1.15) drop-shadow(0 0 3px rgba(0,0,0,.3))}
+.row-hidden{display:none}
+
+/* Alternating row tint */
+tr:nth-child(even) .th-prob,
+tr:nth-child(even) .td-mark:not([class*="mark-"]){background:#fdfdfc}
+
+/* ─── MODAL ─────────────────────────────────────────────────────── */
+.modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(8,16,32,.7);
+  backdrop-filter:blur(6px);
+  z-index:2000;align-items:center;justify-content:center;padding:16px;
+}
+.modal-bg.open{display:flex}
+.modal{
+  background:#fff;border-radius:20px;
+  width:440px;max-width:95vw;
+  max-height:92vh;overflow-y:auto;overflow-x:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.08);
+  animation:modalIn .2s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+
+/* Modal header with coloured band + SVG pattern */
+.modal-head{
+  position:relative;padding:14px 20px 12px;overflow:hidden;
+}
+.modal-head-bg{
+  position:absolute;inset:0;
+  opacity:.12;
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,.2) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,.2) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,.2) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,.2) 75%);
+  background-size:12px 12px;
+  background-position:0 0,0 6px,6px -6px,-6px 0px;
+}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  width:30px;height:30px;background:rgba(0,0,0,.1);
+  border:none;border-radius:50%;cursor:pointer;
+  font-size:16px;display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.85);transition:background .15s;z-index:1;
+}
+.modal-close:hover{background:rgba(0,0,0,.25)}
+.modal-badge{
+  display:inline-block;font-size:10px;font-weight:800;
+  padding:3px 11px;border-radius:20px;margin-bottom:10px;
+  letter-spacing:.04em;
+  background:rgba(255,255,255,.2);color:#fff;
+  border:1px solid rgba(255,255,255,.3);
+  position:relative;z-index:1;
+}
+.modal-title{
+  font-size:16px;font-weight:700;color:#fff;
+  margin-bottom:4px;line-height:1.2;padding-right:38px;
+  position:relative;z-index:1;
+}
+.modal-purpose{
+  font-size:12px;color:rgba(255,255,255,.82);
+  line-height:1.5;position:relative;z-index:1;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* Modal meta grid */
+.modal-meta{
+  display:grid;grid-template-columns:1fr 1fr;gap:5px;
+  padding:8px 20px 0;
+}
+.meta-item{
+  background:#f8f8f6;border-radius:7px;padding:5px 9px;
+  border:1px solid #eee;
+}
+.meta-label{
+  font-size:9px;font-weight:800;color:#aaa;
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;
+}
+.meta-value{font-size:10.5px;color:#333;line-height:1.3;max-height:2.6em;overflow:hidden;}
+
+.modal-divider{height:1px;background:#f0f0ee;margin:8px 0 0}
+
+/* Modal links */
+.modal-links-section{padding:8px 20px 12px}
+.modal-links-title{
+  font-size:10px;font-weight:800;color:#aaa;
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:11px;
+}
+.modal-links{display:flex;flex-direction:column;gap:6px}
+.modal-link{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-radius:10px;text-decoration:none;color:inherit;
+  border:1.5px solid #eee;transition:all .15s;cursor:pointer;background:#fff;
+}
+.modal-link:hover{transform:translateX(4px)}
+.modal-link-icon{
+  width:34px;height:34px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.modal-link-text{flex:1;min-width:0}
+.modal-link-title{font-size:13px;font-weight:700;margin-bottom:2px}
+.modal-link-sub{font-size:11px;color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-link-arrow{font-size:15px;flex-shrink:0;opacity:.4}
+
+.ml-pdf{border-color:#FAD08A}
+.ml-pdf:hover{border-color:#BA7517;background:#FFFBF0}
+.ml-pdf .modal-link-title{color:#633806}
+.ml-pdf .modal-link-arrow{color:#BA7517;opacity:.7}
+
+.ml-html{border-color:#A8CBE8}
+.ml-html:hover{border-color:#2E75B6;background:#EEF5FD}
+.ml-html .modal-link-title{color:#0C447C}
+.ml-html .modal-link-arrow{color:#2E75B6;opacity:.7}
+
+.ml-excel{border-color:#A8D8B0}
+.ml-excel:hover{border-color:#2E7D32;background:#F0FAF1}
+.ml-excel .modal-link-title{color:#1B5E20}
+.ml-excel .modal-link-arrow{color:#2E7D32;opacity:.7}
+
+.ml-pdf-disabled{border-color:#f0f0f0;opacity:.4;cursor:not-allowed}
+.ml-pdf-disabled:hover{transform:none;background:#fff}
+
+.modal-dept-tag{
+  padding:6px 20px;
+  background:#f8f8f6;border-top:1px solid #eee;
+  font-size:11px;color:#aaa;
+  display:flex;align-items:center;gap:6px;
+}
+
+/* ─── COLUMN TOOLTIP ──────────────────────────────────────────── */
+#ctip{
+  position:fixed;background:#fff;border-radius:12px;padding:13px 16px;
+  max-width:260px;z-index:9999;pointer-events:none;display:none;
+  box-shadow:0 8px 30px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.07);
+}
+#ctip .ct-name{font-size:13px;font-weight:700;margin-bottom:3px;color:#1F3864}
+#ctip .ct-cat{font-size:10px;font-weight:700;margin-bottom:5px}
+#ctip .ct-purpose{font-size:11px;color:#666;line-height:1.5;margin-bottom:6px}
+#ctip .ct-hint{font-size:10px;color:#2E75B6;font-weight:700}
+
+/* ─── FOOTER ──────────────────────────────────────────────────── */
+.footer{
+  text-align:center;padding:16px 0;
+  font-size:11px;color:rgba(255,255,255,.35);
+  letter-spacing:.03em;
+}
+
+@media print{
+  body{background:#fff}body::before,body::after{display:none}
+  .controls-bar,.legend-bar,.modal-bg,#ctip,.footer{display:none!important}
+  .matrix-wrap{border:1px solid #ccc;box-shadow:none}
+  .header{background:#1F3864!important}
+  .page{padding:0}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ─── HERO HEADER ─────────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-bg"></div>
+  <div class="header-pattern"></div>
+  <div class="header-glow"></div>
+  <div class="header-glow2"></div>
+
+  <!-- Decorative SVG shapes in header -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:.08" preserveAspectRatio="none" viewBox="0 0 1200 140">
+    <circle cx="1100" cy="20" r="80" fill="white"/>
+    <circle cx="1050" cy="110" r="45" fill="white"/>
+    <polygon points="0,0 120,0 0,140" fill="white"/>
+    <polygon points="200,140 320,0 440,140" fill="none" stroke="white" stroke-width="1.5"/>
+    <polygon points="500,140 620,0 740,140" fill="none" stroke="white" stroke-width="1"/>
+    <rect x="820" y="10" width="60" height="60" rx="8" fill="none" stroke="white" stroke-width="1.5" transform="rotate(20,850,40)"/>
+    <rect x="900" y="50" width="40" height="40" rx="6" fill="none" stroke="white" stroke-width="1" transform="rotate(-15,920,70)"/>
+  </svg>
+
+  <div class="header-content">
+    <div class="header-icon-wrap">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+        <rect x="3" y="3" width="16" height="16" rx="3" fill="rgba(255,255,255,.25)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+        <rect x="23" y="3" width="16" height="16" rx="3" fill="rgba(127,212,193,.35)" stroke="rgba(127,212,193,.6)" stroke-width="1.5"/>
+        <rect x="3" y="23" width="16" height="16" rx="3" fill="rgba(255,200,100,.25)" stroke="rgba(255,200,100,.5)" stroke-width="1.5"/>
+        <rect x="23" y="23" width="16" height="16" rx="3" fill="rgba(180,140,255,.25)" stroke="rgba(180,140,255,.5)" stroke-width="1.5"/>
+        <circle cx="11" cy="11" r="3" fill="rgba(255,255,255,.8)"/>
+        <circle cx="31" cy="11" r="3" fill="rgba(127,212,193,.9)"/>
+        <circle cx="11" cy="31" r="3" fill="rgba(255,200,100,.9)"/>
+        <circle cx="31" cy="31" r="3" fill="rgba(180,140,255,.9)"/>
+      </svg>
+    </div>
+
+    <div class="header-text">
+      <h1>Process Improvement <span>Tools Matrix</span></h1>
+      <p>A complete toolkit for every department, problem, and improvement approach — click any dot to open the PDF guide, HTML template, or download the Excel workbook.</p>
+      <div class="header-badges">
+        <span class="hbadge">📋 &nbsp;70 Tools</span>
+        <span class="hbadge">🏢 &nbsp;12 Departments</span>
+        <span class="hbadge">📁 &nbsp;69 PDF Guides</span>
+        <span class="hbadge">🌐 &nbsp;70 HTML Templates</span>
+        <span class="hbadge">📊 &nbsp;70 Excel Workbooks</span>
+      </div>
+    </div>
+
+    <div class="header-stats">
+      <div class="header-stats-row">
+        <div class="hstat"><div class="hstat-num" id="sDept">12</div><div class="hstat-label">Depts</div></div>
+        <div class="hstat"><div class="hstat-num" id="sProb">60</div><div class="hstat-label">Problems</div></div>
+      </div>
+      <div class="header-stats-row">
+        <div class="hstat"><div class="hstat-num" id="sTool">—</div><div class="hstat-label">Tools</div></div>
+        <div class="hstat"><div class="hstat-num" id="sHl">—</div><div class="hstat-label">Selected</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTROLS ─────────────────────────────────────────────────── -->
+<div class="controls-bar">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-box" id="srch" placeholder="Search department or problem..." type="text">
+  </div>
+  <div class="pills" id="pills"></div>
+</div>
+
+<!-- ─── LEGEND ───────────────────────────────────────────────────── -->
+<div class="legend-bar">
+  <div class="leg-item"><div class="leg-dot" style="background:#534AB7"></div>Strategy &amp; planning</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#085041"></div>Quality &amp; process</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#BA7517"></div>Operations</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#0C447C"></div>Management systems</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#712B13"></div>People &amp; CI</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#72243E"></div>Commercial</div>
+  <div class="legend-hint">Click any dot → PDF · HTML · Excel</div>
+</div>
+
+<!-- ─── MATRIX ───────────────────────────────────────────────────── -->
+<div class="matrix-wrap"><table id="tbl"></table></div>
+
+<div class="footer">Process Improvement Tools Matrix &nbsp;·&nbsp; All files in this folder &nbsp;·&nbsp; Keep PI_Toolkit together for links to work</div>
+</div>
+
+<!-- ─── MODAL ────────────────────────────────────────────────────── -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+<div class="modal">
+  <div class="modal-head" id="modal-head">
+    <div class="modal-head-bg"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-badge" id="m-badge"></div>
+    <div class="modal-title" id="m-title"></div>
+    <div class="modal-purpose" id="m-purpose"></div>
+  </div>
+  <div class="modal-meta">
+    <div class="meta-item"><div class="meta-label">When to use</div><div class="meta-value" id="m-when"></div></div>
+    <div class="meta-item"><div class="meta-label">Key output</div><div class="meta-value" id="m-out"></div></div>
+    <div class="meta-item"><div class="meta-label">Success metric</div><div class="meta-value" id="m-metric"></div></div>
+    <div class="meta-item"><div class="meta-label">Category</div><div class="meta-value" id="m-cat2"></div></div>
+  </div>
+  <div class="modal-divider"></div>
+  <div class="modal-links-section">
+    <div class="modal-links-title">Open or download this tool</div>
+    <div class="modal-links">
+
+      <a class="modal-link ml-pdf" id="m-pdf-link" target="_blank">
+        <div class="modal-link-icon" style="background:#FFF3D6">📄</div>
+        <div class="modal-link-text">
+          <div class="modal-link-title">PDF Reference Card</div>
+          <div class="modal-link-sub">One-page visual guide — print or display</div>
+        </div>
+        <div class="modal-link-arrow">↗</div>
+      </a>
+
+      <a class="modal-link ml-html" id="m-html-link" target="_blank">
+        <div class="modal-link-icon" style="background:#E0EEF9">🌐</div>
+        <div class="modal-link-text">
+          <div class="modal-link-title">HTML Template</div>
+          <div class="modal-link-sub">Fill in browser — print or save as PDF</div>
+        </div>
+        <div class="modal-link-arrow">↗</div>
+      </a>
+
+      <a class="modal-link ml-excel" id="m-xl-link" target="_blank">
+        <div class="modal-link-icon" style="background:#E2F3E5">📊</div>
+        <div class="modal-link-text">
+          <div class="modal-link-title">Excel Workbook</div>
+          <div class="modal-link-sub">Opens in Excel — formulas, dropdowns &amp; conditional formatting</div>
+        </div>
+        <div class="modal-link-arrow">↗</div>
+      </a>
+
+    </div>
+  </div>
+  <div class="modal-dept-tag">📍 <span id="m-dept"></span></div>
+</div>
+</div>
+
+<!-- ─── COLUMN TOOLTIP ─────────────────────────────────────────── -->
+<div id="ctip">
+  <div class="ct-name" id="ct-name"></div>
+  <div class="ct-cat" id="ct-cat"></div>
+  <div class="ct-purpose" id="ct-purpose"></div>
+  <div class="ct-hint">▸ Click name to open PDF &nbsp;|&nbsp; Click dot for all options</div>
+</div>
+
+<script>
+const CAT={
+  P:{dark:"#534AB7",light:"#EEEDFE",label:"Strategy & planning",  bg:"linear-gradient(135deg,#3C3489,#534AB7)"},
+  Q:{dark:"#085041",light:"#E1F5EE",label:"Quality & process",    bg:"linear-gradient(135deg,#04342C,#0F6E56)"},
+  S:{dark:"#633806",light:"#FFF3E0",label:"Operations",            bg:"linear-gradient(135deg,#412402,#BA7517)"},
+  M:{dark:"#0C447C",light:"#E3EEF9",label:"Management systems",   bg:"linear-gradient(135deg,#042C53,#185FA5)"},
+  C:{dark:"#712B13",light:"#FAECE7",label:"People & CI",           bg:"linear-gradient(135deg,#4A1B0C,#993C1D)"},
+  R:{dark:"#72243E",light:"#FEF0F5",label:"Commercial",            bg:"linear-gradient(135deg,#4B1528,#993556)"},
+};
+
+const TOOLS=[
+  {n:"Hoshin Kanri",c:"P",f:"Hoshin_Kanri",purpose:"Align company strategy to daily operations by cascading goals from leadership to frontline teams through a structured X-matrix.",when:"Annual strategic planning; when teams are siloed with no link to company objectives.",output:"X-Matrix — strategy on one page",metric:"% KPIs on track; % action plans on time"},
+  {n:"Balanced Scorecard",c:"P",f:"Balanced_Scorecard",purpose:"Measure organisational performance across four perspectives: Financial, Customer, Internal Processes, and Learning & Growth.",when:"When decisions are driven by financial metrics alone; when strategy lacks measurable targets.",output:"One-page scorecard with KPI dashboard",metric:"KPI achievement rate per perspective"},
+  {n:"SWOT Analysis",c:"P",f:"SWOT_Analysis",purpose:"Identify internal Strengths and Weaknesses alongside external Opportunities and Threats to inform strategy.",when:"Before launching a new product, market entry, or facing a significant competitive challenge.",output:"SWOT matrix and strategic options list",metric:"Options generated; % actioned in 90 days"},
+  {n:"Benchmarking",c:"P",f:"Benchmarking",purpose:"Compare performance, processes, or practices against industry leaders to identify improvement opportunities.",when:"When unsure how competitive your performance is; before setting stretch targets.",output:"Benchmark comparison report and gap analysis",metric:"Gap closed vs benchmark over 12 months"},
+  {n:"Stakeholder ID",c:"P",f:"Stakeholder_Identification",purpose:"Map all people and groups affected by or able to influence a project, then plan engagement accordingly.",when:"At the start of any project or change initiative — before decisions are made.",output:"Stakeholder map and engagement plan",metric:"Stakeholder satisfaction; % engaged on schedule"},
+  {n:"Project Charter",c:"P",f:"Project_Charter",purpose:"Formally define a project's scope, objectives, team, timeline, and authority before work begins.",when:"Starting any project involving cross-functional resources or lasting more than two weeks.",output:"Signed project charter and RACI matrix",metric:"On-time delivery; scope change requests count"},
+  {n:"Project Mgmt",c:"P",f:"Project_Management",purpose:"Plan, execute, monitor, and close projects on time, within budget, and to the agreed scope and quality.",when:"Any initiative with defined deliverables, a timeline, and resource requirements.",output:"Project plan, Gantt chart, risk register",metric:"On-time delivery rate; budget variance %"},
+  {n:"Agile",c:"P",f:"Agile",purpose:"Deliver work in short iterative cycles (sprints) with continuous feedback, enabling rapid adaptation.",when:"In development or innovation environments where requirements evolve quickly.",output:"Working deliverable each sprint; velocity chart",metric:"Velocity trend; defects per sprint"},
+  {n:"Gantt Chart",c:"P",f:"Gantt_Chart",purpose:"Visualise project tasks, dependencies, and timelines on a horizontal bar chart to plan and track progress.",when:"Planning any multi-task project where sequence, timing, and dependencies need to be visible.",output:"Gantt chart with critical path highlighted",metric:"Tasks on time %; critical path slippage days"},
+  {n:"Tactical Plan",c:"P",f:"Tactical_Implementation_Plan",purpose:"Break a strategic objective into 90-day action plans with clear owners, milestones, and resources.",when:"After setting annual targets — to translate strategy into specific executable actions.",output:"90-day action plan and milestone tracker",metric:"Milestone on-time rate; objective achievement rate"},
+  {n:"KPI Dashboard",c:"P",f:"KPI_Dashboard",purpose:"Systematically review key performance indicators to confirm performance is on track and trigger action where it is not.",when:"Daily, weekly, and monthly at every level of the organisation.",output:"KPI dashboard with RAG status and trend charts",metric:"% KPIs within target; response time to RED"},
+  {n:"Meeting Guide",c:"M",f:"Effective_Meeting_Guide",purpose:"A simple framework to make every meeting productive — clear purpose, participation, and documented outcomes.",when:"For any recurring or project meeting — to raise the overall meeting culture of a team.",output:"Meeting agenda, action log, decision log",metric:"Action completion rate from meetings %"},
+  {n:"5S",c:"Q",f:"5S_Audit",purpose:"Create and sustain a clean, organised, standardised workplace through Sort, Set in Order, Shine, Standardise, and Sustain.",when:"When workplaces are cluttered, items cannot be found quickly, or quality issues trace to the environment.",output:"5S audit checklist and score; visual standards",metric:"5S score (0–100); time to find any item"},
+  {n:"PDCA",c:"Q",f:"PDCA_Tracker",purpose:"A four-step scientific method — Plan, Do, Check, Act — for iterative problem solving and continuous improvement.",when:"For any problem where the root cause or solution is not yet known and needs to be tested.",output:"PDCA worksheet; test results; updated standard",metric:"Cycle time; % cycles resulting in sustained improvement"},
+  {n:"A3 PSP",c:"Q",f:"A3_Problem_Solving",purpose:"Solve problems using a structured one-page A3 format covering background, current state, analysis, countermeasures, and results.",when:"For medium-complexity problems requiring documented root cause analysis and a tested countermeasure.",output:"Completed A3 document; updated process standard",metric:"Problem recurrence rate at 30 and 90 days"},
+  {n:"8D PSP",c:"Q",f:"8D_Problem_Solving",purpose:"Resolve complex, recurring problems using an 8-step discipline that drives permanent corrective action and verified prevention.",when:"Customer complaints, repeat defects, safety incidents, or any issue requiring a rigorous permanent fix.",output:"Completed 8D report; updated control plan",metric:"Problem recurrence rate at 90 days"},
+  {n:"DMAIC",c:"Q",f:"DMAIC",purpose:"A rigorous data-driven improvement method — Define, Measure, Analyse, Improve, Control — used in Six Sigma projects.",when:"For complex problems with significant financial or quality impact where data is available.",output:"Project charter; process capability; control plan",metric:"Sigma level improvement; defect reduction %"},
+  {n:"12 Step Kaizen",c:"Q",f:"12_Step_Kaizen",purpose:"Run a focused 3–5 day improvement event using a structured 12-step methodology to achieve breakthrough results quickly.",when:"When a targeted area needs rapid, measurable improvement with cross-functional team involvement.",output:"Kaizen report with before/after metrics; sustain audit plan",metric:"% target achieved; sustained at 30-day audit"},
+  {n:"7 Quality Tools",c:"Q",f:"7_Quality_Tools",purpose:"Seven graphical techniques: Fishbone, Pareto, Run Chart, Histogram, Control Chart, Scatter Diagram, and Check Sheet.",when:"Whenever quality data exists and patterns, causes, or variation need to be understood visually.",output:"Pareto chart; fishbone diagram; control chart",metric:"Defect reduction in the prioritised category"},
+  {n:"SPC",c:"Q",f:"SPC_Statistical_Process_Control",purpose:"Apply Statistical Process Control charts to distinguish common cause variation from special causes requiring investigation.",when:"In any repetitive process where consistency matters — production, service delivery, data processing.",output:"Control charts with calculated limits; Cp and Cpk",metric:"Cpk trend over time; special cause events per month"},
+  {n:"Box & Whisker",c:"Q",f:"Box_and_Whisker",purpose:"Visualise the distribution of a dataset — median, quartiles, spread, and outliers — for group comparison.",when:"Comparing distributions across shifts, machines, operators, suppliers, or time periods.",output:"Box plot chart; summary statistics table",metric:"Interquartile range reduction; outlier frequency"},
+  {n:"Stratification",c:"Q",f:"Stratification_Diagram",purpose:"Separate aggregate data into subgroups — by shift, machine, product, operator — to reveal hidden patterns.",when:"When aggregate data masks the true source of a problem.",output:"Stratified comparison charts; performance by stratum",metric:"Variance explained by stratification factor"},
+  {n:"FMEA",c:"Q",f:"FMEA_Template",purpose:"Proactively identify potential failure modes, their effects, and causes before they occur — then prioritise risk reduction.",when:"Before launching a new process or product; when designing controls for high-risk steps.",output:"FMEA table with RPN scores; risk priority ranking",metric:"Average RPN reduction %; critical modes mitigated"},
+  {n:"Design of Expts",c:"Q",f:"Design_of_Experiments",purpose:"Systematically test combinations of input variables to find which factors most influence an output and identify optimal settings.",when:"When multiple factors may interact; when optimising a process or formulation efficiently.",output:"Experimental design matrix; main effects; optimal settings",metric:"% improvement in response variable"},
+  {n:"SPC (Control)",c:"Q",f:"Statistical_Process_Control",purpose:"Monitor process outputs using control charts to detect changes in process behaviour early — before they produce defects.",when:"In any repetitive process where early detection of change enables prevention rather than rework.",output:"Real-time control charts; process capability summary",metric:"False alarm rate; time to detect genuine process shift"},
+  {n:"5 Whys",c:"Q",f:"5_Whys",purpose:"Drill down to root cause by repeatedly asking 'Why?' — typically five times — until the underlying actionable cause is reached.",when:"For any problem where the immediate cause is known but the root cause is not.",output:"5 Why's chain; root cause statement; corrective action",metric:"Problem recurrence rate at 30 and 90 days"},
+  {n:"Waste ID",c:"Q",f:"Waste_Identification",purpose:"Identify and quantify the 8 wastes (TIMWOODS): Transport, Inventory, Motion, Waiting, Overproduction, Over-processing, Defects, Skills.",when:"During gemba walks, process reviews, or when looking for cost reduction and lead time improvements.",output:"Waste observation sheet; estimated waste cost by type",metric:"Waste cost eliminated; lead time reduction %"},
+  {n:"Chalk Circle",c:"Q",f:"Chalk_Circle",purpose:"Develop deep process observation skills by standing in one location for an extended period and recording everything observed.",when:"Before designing improvements; when assumptions about how a process works need testing against reality.",output:"Structured observation log; problem and waste list",metric:"Problems identified per observation hour"},
+  {n:"CI Activity Sheet",c:"Q",f:"CI_Activity_Sheet",purpose:"Track continuous improvement ideas and actions on a single visible sheet — making all CI activity transparent and accountable.",when:"As a permanent feature of any team practising CI — reviewed weekly.",output:"CI activity log; completion trend chart",metric:"Ideas completed per month; days from idea to closure"},
+  {n:"JIT",c:"S",f:"JIT",purpose:"Produce or deliver exactly what is needed, when it is needed, in the exact quantity required — eliminating overproduction and excess inventory.",when:"When inventory levels are high, storage costs are significant, or lead times need shortening.",output:"Material flow map; pull system design; inventory reduction plan",metric:"Inventory turns per year; days on hand reduction"},
+  {n:"Heijunka",c:"S",f:"Heijunka",purpose:"Level production volume and mix across a planning period to smooth demand on upstream processes and supply chain.",when:"When production scheduling creates peaks and valleys that stress resources.",output:"Heijunka scheduling box; levelled production schedule",metric:"Schedule adherence; WIP inventory reduction %"},
+  {n:"Kanban",c:"S",f:"Kanban",purpose:"Control inventory and workflow using visual signals — cards, bins, or board columns — that trigger replenishment only when needed.",when:"To replace push scheduling with a demand-driven pull system; to make WIP visible and limited.",output:"Kanban design specification; WIP reduction trend chart",metric:"WIP reduction %; stockout frequency; inventory value"},
+  {n:"Value Stream Map",c:"S",f:"Value_Stream_Mapping",purpose:"Visualise the entire flow of material and information from raw material to customer — revealing waste, delays, and improvement priorities.",when:"Before any major process improvement initiative; whenever lead time is the primary constraint.",output:"Current and future state maps; implementation roadmap",metric:"Lead time reduction %; value-added ratio improvement"},
+  {n:"OEE",c:"S",f:"OEE_Calculator",purpose:"Measure equipment productivity as Availability × Performance × Quality — identifying which of the six big losses to target first.",when:"When equipment is a constraint on output; to benchmark machine performance and prioritise maintenance.",output:"OEE dashboard by machine and shift; six big losses analysis",metric:"OEE % improvement month on month"},
+  {n:"Equip. Performance",c:"S",f:"Equipment_Performance_Factor",purpose:"Measure and track the actual performance of individual equipment against its designed output rate.",when:"When machine output is inconsistent or below standard; before a capital investment decision.",output:"Performance factor trend chart; loss analysis",metric:"Performance factor % increase; shift variability"},
+  {n:"Bottleneck Walk",c:"S",f:"Bottleneck_Walk",purpose:"Physically walk a process to identify the specific constraining step that limits overall system throughput.",when:"When total output is below target but individual steps appear busy; when lead time is unexpectedly long.",output:"Bottleneck identification; cycle time comparison chart",metric:"Throughput increase after bottleneck action"},
+  {n:"SMED",c:"S",f:"SMED",purpose:"Reduce equipment changeover time to under 10 minutes by converting internal activities to external and streamlining internal steps.",when:"When frequent changeovers limit available production time, flexibility, or batch size reduction.",output:"Current vs target changeover analysis; standard changeover procedure",metric:"Changeover time reduction % vs baseline"},
+  {n:"Yamazumi",c:"S",f:"Yamazumi",purpose:"A stacked bar chart visualising individual operator cycle times vs takt time — enabling balanced work redistribution.",when:"When designing or rebalancing a production line or service cell with multiple operators.",output:"Yamazumi chart; rebalanced work assignment table",metric:"Line balance rate %; operator utilisation vs takt"},
+  {n:"Logic Tree",c:"S",f:"Logic_Tree",purpose:"Break down a complex problem or goal into component parts using a hierarchical MECE diagram to ensure complete analysis.",when:"For complex problems where multiple causes or solutions exist and completeness must be verified.",output:"Logic tree diagram; prioritised action list",metric:"Problem fully resolved with no recurrence"},
+  {n:"Early Product Dev",c:"S",f:"Early_Product_Development",purpose:"Apply lean principles to the development phase to shorten cycles, reduce engineering changes, and improve launch quality.",when:"When product launches are consistently late, over budget, or followed by high defect rates.",output:"Obeya room; set-based design; engineering FMEA",metric:"Engineering changes post-launch; time-to-market vs plan"},
+  {n:"Early Equip. Mgmt",c:"S",f:"Early_Equipment_Management",purpose:"Involve operations and maintenance teams in equipment specification and commissioning to achieve fast ramp-up from day one.",when:"When procuring new equipment or designing new production lines — before the specification is issued.",output:"Equipment specification; vertical start-up plan; commissioning report",metric:"Days to achieve target OEE after commissioning"},
+  {n:"SMF Management",c:"M",f:"SMF_Management",purpose:"Implement a structured daily, weekly, and monthly management framework using standard meetings and visual controls.",when:"When teams operate inconsistently; when management time is dominated by fire-fighting instead of prevention.",output:"SMF blueprint; visual board standards; cadence calendar",metric:"Meeting compliance %; issue resolution cycle time"},
+  {n:"SFM Rules",c:"M",f:"SFM_Rules",purpose:"Define the non-negotiable standards of behaviour and accountability for how a team manages its area.",when:"When establishing a new team management system or when existing standards are inconsistently applied.",output:"SFM rules document; weekly compliance audit checklist",metric:"SFM audit compliance %; rule violation frequency"},
+  {n:"Shift Handover",c:"M",f:"Shift_Handover",purpose:"Ensure complete, structured transfer of critical information between shifts so incoming teams start without delay or lost context.",when:"Wherever shift work exists — and in any role with formal handovers.",output:"Completed handover log; open issues tracker",metric:"Issues arising from poor handovers per month"},
+  {n:"Comms Standard",c:"M",f:"Communication_Standard",purpose:"Define how information flows between roles, teams, and levels — what is communicated, by whom, in what format, and how often.",when:"When people repeatedly say 'I didn't know'; when the same information is shared in multiple inconsistent ways.",output:"Communication matrix; standard message templates",metric:"Communication-related errors per month"},
+  {n:"Feedback Rules",c:"M",f:"Feedback_Rules",purpose:"Define how feedback is given and received within a team to create psychological safety and drive visible improvement.",when:"When teams avoid honest conversation; when feedback is ad hoc, absent, or perceived as personal attack.",output:"Team feedback charter; 1:1 conversation template",metric:"Feedback frequency per person per month"},
+  {n:"Intro of Standard",c:"M",f:"Introduction_of_Standard",purpose:"Follow a structured process when introducing new standards so they are understood, accepted, and followed — not just issued.",when:"Whenever a new process, procedure, policy, or work instruction is being created and deployed.",output:"New standard document; pilot test results; training completion record",metric:"Standard adherence rate at 30 and 90 days"},
+  {n:"Revision of Std",c:"M",f:"Revision_of_Standard",purpose:"Update existing standards in a controlled, documented way to reflect process improvements, lessons learned, or regulatory changes.",when:"After a process improvement is implemented; when a standard no longer accurately describes what should be done.",output:"Revised standard; change summary; retraining record",metric:"Time from improvement to standard update"},
+  {n:"Training of Std",c:"M",f:"Training_of_Standard",purpose:"Deliver structured, verified training on a work standard to ensure consistent application by all relevant team members.",when:"When onboarding new team members; when a standard has been revised; when deviations are found in practice.",output:"Training completion record; updated skills matrix; competency assessment",metric:"Training completion rate %; post-training deviation rate"},
+  {n:"Deviation of Std",c:"M",f:"Deviation_of_Standard",purpose:"Manage and investigate deviations from documented standards to understand why they occur and permanently prevent recurrence.",when:"Whenever a team member does not follow the defined procedure — whether by mistake, necessity, or choice.",output:"Deviation record with investigation; corrective action documentation",metric:"Deviation frequency trend; recurrence rate at 30 days"},
+  {n:"Work Instructions",c:"M",f:"Work_Instructions_Guide",purpose:"A framework for writing work instructions that are clear, visual, concise, and actually used at the point of work.",when:"When creating or revising any written procedure, work instruction, or operating standard.",output:"Visual work instruction; photo-based standard at point of use",metric:"Work instruction adherence rate %; errors per instruction cycle"},
+  {n:"Customer Gemba",c:"C",f:"Customer_Gemba",purpose:"Visit the customer's actual environment to directly observe how they use your product or service.",when:"Before redesigning a product or service; when satisfaction scores are falling.",output:"Structured observation notes; customer insight summary",metric:"Insights per visit; NPS/CSAT before and after acting on insights"},
+  {n:"Customer Feedback",c:"C",f:"Customer_Feedback",purpose:"Systematically collect, analyse, and act on customer feedback to drive measurable improvement and build customer loyalty.",when:"Continuously as part of normal operations — not only when there is a problem.",output:"Customer feedback dashboard; theme analysis; action log",metric:"NPS trend; complaint resolution time in days"},
+  {n:"GO & See",c:"C",f:"GO_and_See",purpose:"Leaders leave the office and visit the actual workplace to observe firsthand — replacing management by reports with management by reality.",when:"Daily for leaders at all levels. GO & See is a habit, not an occasional inspection.",output:"GO & See observation log; coaching notes; management action items",metric:"Visit frequency per week; issues identified per visit"},
+  {n:"Design Thinking",c:"C",f:"Design_Thinking",purpose:"A human-centred innovation process using empathy, ideation, and rapid prototyping to generate creative solutions to complex problems.",when:"For customer experience challenges, new service design, or any problem where the solution space is unknown.",output:"Empathy map; How Might We statement; prototype; user test insights",metric:"User tests per idea; adoption rate at 6 months"},
+  {n:"NLC Principles",c:"C",f:"NLC_Principles",purpose:"Apply Natural Leadership Capability principles to develop leaders who enable people to think and perform at their best.",when:"When building leadership development programmes; when team engagement or empowerment is consistently low.",output:"Leadership capability assessment; development plan; coaching log",metric:"Team engagement score; decisions made below management level"},
+  {n:"Brainstorming",c:"C",f:"Brainstorming",purpose:"Generate a large quantity of creative ideas in a structured, judgment-free group session to expand the solution space.",when:"When looking for creative solutions; at the start of problem solving or improvement planning.",output:"Full idea list; clustered themes; shortlist for development",metric:"Ideas generated per session; % advanced to action"},
+  {n:"Leading Workshop",c:"C",f:"Leading_a_Workshop",purpose:"Design and facilitate a group working session that achieves a defined objective through structured, inclusive participation.",when:"For problem solving, decision making, improvement planning, or team alignment on complex topics.",output:"Workshop agenda; session outputs; action log with owners",metric:"Objective achieved; participant satisfaction; action completion rate"},
+  {n:"Alt Solutions Eval",c:"C",f:"Alternative_Solutions_Evaluation",purpose:"Systematically compare multiple solution options against agreed criteria to make an informed, transparent, and defensible decision.",when:"Before committing resources to a solution; when stakeholders disagree on the best approach.",output:"Options comparison matrix; weighted scoring; decision rationale",metric:"Decision quality assessed at 6-month outcome review"},
+  {n:"Skills Matrix",c:"C",f:"Skills_Matrix",purpose:"Visualise the skill levels of each team member across all required competencies to identify gaps and development priorities.",when:"During team formation; annual development cycles; before cross-training; when planning cover for absences.",output:"Skills matrix chart; critical gap analysis; individual development plans",metric:"% competencies with 2+ people competent; avg skill level growth"},
+  {n:"Multiskilling",c:"C",f:"Multiskilling_Job_Rotation",purpose:"Develop team members' ability to perform multiple roles to reduce single-point dependency and increase operational flexibility.",when:"When absenteeism creates unacceptable production risk; when team engagement is low.",output:"Job rotation schedule; updated skills matrix; competency sign-off records",metric:"% team competent in 2+ roles; absence impact on output"},
+  {n:"Risk Management",c:"C",f:"Risk_Management",purpose:"Identify, assess, prioritise, and control risks to prevent losses and protect business continuity across all departments.",when:"Before major changes, projects, or investments; continuously for operational, financial, and safety risks.",output:"Risk register; risk matrix heat map; mitigation action plan",metric:"Risks identified and controlled; incidents from uncontrolled risks"},
+  {n:"NPS / Surveys",c:"R",f:"NPS_Survey_Tools",purpose:"Measure customer loyalty and satisfaction using standardised surveys to generate data for tracking and improving customer experience.",when:"Continuously or at defined moments in the customer journey: post-purchase, post-support, or annual review.",output:"NPS, CSAT, or CES score by segment; verbatim theme analysis; action plan",metric:"NPS trend over 12 months; response rate %; actions closed per quarter"},
+  {n:"CRM Process Review",c:"R",f:"CRM_Process_Review",purpose:"Audit and improve how CRM processes and tools are used to ensure data quality, pipeline accuracy, and commercial discipline.",when:"When forecast accuracy is consistently poor; when CRM data is incomplete or distrusted.",output:"CRM audit report; process improvement plan; data quality dashboard",metric:"CRM data completeness %; forecast accuracy improvement"},
+  {n:"Competitive Analysis",c:"R",f:"Competitive_Analysis",purpose:"Systematically research and compare competitors on product, price, positioning, channels, and strategy to identify threats and opportunities.",when:"Before launching a new product or market; when win rates are declining; during annual strategic planning.",output:"Competitive matrix; market positioning map; strategic response plan",metric:"Win rate trend vs named competitors; market share position"},
+  {n:"VSM Data Capture",c:"S",f:"VSM_Data_Capture",purpose:"Capture accurate process data during a Value Stream Mapping gemba walk — cycle times, changeover, uptime, inventory, and queue times for each step.",when:"During the current state VSM gemba walk. Measure actual times — minimum 5 cycles per step. Never estimate.",output:"Process data table; lead time calc; efficiency %; WIP inventory; input data for VSM map",metric:"Total lead time (days); Process efficiency %; WIP inventory; % steps below takt time"},
+  {n:"Action CI Tracker",c:"Q",f:"Action_CI_Tracker",purpose:"Track all continuous improvement ideas and actions on a single visible sheet — making CI activity transparent, owned, and accountable across the team.",when:"As a permanent feature of any team practising CI. Reviewed at every daily or weekly team meeting without exception.",output:"Live CI action log with status and owner; monthly completion rate and idea velocity trend",metric:"Ideas generated per month; Ideas closed per month; Avg days from idea to closure; % actions on time"},
+  {n:"Kaizen Event Report",c:"Q",f:"Kaizen_Event_Report",purpose:"Document a structured 3–5 day focused improvement event from objectives set on Day 1 through results measured on Day 4–5 and the sustain plan beyond the event.",when:"During and immediately after every Kaizen event. Started on Day 1 and completed before the team disperses on Day 5.",output:"Completed event report with before/after data; updated standards list; sustain audit schedule; open actions log",metric:"% targets achieved; Sustained at 30-day audit Y/N; Open actions closed within 30 days %"},
+  {n:"Daily Meeting Mgmt",c:"M",f:"Daily_Meeting_Management",purpose:"Standardise the daily team meeting so it is short, standing, visual, and generates real actions — the heartbeat of the management system.",when:"Every day, same time, same place. The daily meeting is a habit — not a scheduled event that can be cancelled.",output:"Standard daily agenda; completed action log; visual board update record; meeting compliance rate",metric:"Meeting compliance rate %; Actions generated per meeting; Actions closed before next meeting %"},
+  {n:"Risk Register",c:"C",f:"Risk_Register",purpose:"Identify, score, and track all risks using a live register — ensuring every risk has an owner, a mitigation action, and a review date.",when:"At project start, before major changes, and continuously for operational risks. The register must be a living document reviewed regularly.",output:"Scored risk register with owner; risk matrix heat map; treatment plans; monitoring log",metric:"Risks identified; Critical/High risks with active mitigation %; Review compliance rate %"},
+  {n:"Change Mgmt Process",c:"C",f:"Change_Management_Process",purpose:"Guide individuals and teams through the emotional journey of change — from initial Shock to full Integration — using the Kübler-Ross Change Curve with staged manager actions and the right tools at every phase.",when:"At the start of any transformation initiative. Also when introducing new processes or systems, when performance dips after a change, during Gemba walks or change audits, when adoption is slow or inconsistent, or during major organisational change.",output:"Stage-specific action plan matched to the curve; stakeholder RACI map; resistance log; ADKAR assessment; benefits realisation scorecard",metric:"Adoption rate at 30/60/90 days; resistance score per pulse survey; ADKAR gap closure rate; % team at Integration stage"},
+];
+
+function getPdfPath(tool){
+  return 'pdfs/'+tool.f+'.pdf';
+}
+
+const TOOL_MAP={};
+TOOLS.forEach(t=>TOOL_MAP[t.n]=t);
+
+const DEPTS=[
+  {name:"Executive & Strategy",cat:0,problems:["Misalignment between departments","Poor strategic execution","Unclear company vision","Ineffective board reporting","Risk management gaps"]},
+  {name:"Finance & Accounting",cat:0,problems:["Cost overruns","Budget variance","Inefficient approvals","Poor financial visibility","Audit findings"]},
+  {name:"Human Resources",cat:6,problems:["High employee turnover","Skill gaps","Low engagement","Ineffective onboarding","Performance management issues"]},
+  {name:"Information Technology",cat:6,problems:["System downtime","Poor change management","Cybersecurity risks","Slow IT service delivery","Data quality issues"]},
+  {name:"Marketing & Communications",cat:5,problems:["Poor brand consistency","Low campaign ROI","Slow content production","Weak customer insights","Misaligned messaging"]},
+  {name:"Sales & Business Development",cat:5,problems:["Forecast inaccuracy","Long sales cycles","Low win rates","Poor lead conversion","Customer retention issues"]},
+  {name:"Customer Service",cat:5,problems:["Slow response times","Poor action tracking","Low customer satisfaction","Unresolved complaints","High escalation rate"]},
+  {name:"Operations & Supply Chain",cat:2,problems:["Process bottlenecks","High operating costs","Supply chain disruptions","Inventory imbalances","Schedule delays"]},
+  {name:"Production & Manufacturing",cat:2,problems:["Machine downtime","High defect rates","Waste & inefficiency","Adherence to schedule","Low OEE"]},
+  {name:"Quality & Compliance",cat:1,problems:["High defect / error rates","Ineffective controls","Regulatory non-compliance","Audit failures","Escape defects"]},
+  {name:"Research & Development",cat:6,problems:["Long development cycles","Poor collaboration","Design-to-launch gaps","Late product launches","Innovation pipeline gaps"]},
+  {name:"Health, Safety & Environment",cat:4,problems:["Unsafe acts & behaviours","Poor risk identification","Low safety awareness","Incident recurrence","Regulatory non-compliance"]},
+];
+
+// Department label colours (gradient bg for dept-label cells)
+const DEPT_BG=[
+  "linear-gradient(135deg,#3C3489,#534AB7)", // Exec - purple
+  "linear-gradient(135deg,#0C2D5A,#185FA5)", // Finance - blue
+  "linear-gradient(135deg,#1B5E20,#2E7D32)", // HR - green
+  "linear-gradient(135deg,#0C2D5A,#1565C0)", // IT - dark blue
+  "linear-gradient(135deg,#880E4F,#C2185B)", // Marketing - pink
+  "linear-gradient(135deg,#880E4F,#AD1457)", // Sales - pink
+  "linear-gradient(135deg,#4A148C,#7B1FA2)", // CS - purple
+  "linear-gradient(135deg,#E65100,#F57C00)", // Ops - orange
+  "linear-gradient(135deg,#BF360C,#D84315)", // Production - deep orange
+  "linear-gradient(135deg,#004D40,#00695C)", // Quality - dark teal
+  "linear-gradient(135deg,#1A237E,#283593)", // R&D - indigo
+  "linear-gradient(135deg,#B71C1C,#C62828)", // HSE - red
+];
+
+const MATRIX={
+  "Executive & Strategy":{"Misalignment between departments":["Hoshin Kanri","Balanced Scorecard","Comms Standard","Stakeholder ID","Meeting Guide","Daily Meeting Mgmt"],"Poor strategic execution":["Hoshin Kanri","Balanced Scorecard","Tactical Plan","KPI Dashboard","Gantt Chart","Project Charter","Change Mgmt Process"],"Unclear company vision":["Hoshin Kanri","SWOT Analysis","Brainstorming","Design Thinking","Leading Workshop"],"Ineffective board reporting":["Balanced Scorecard","KPI Dashboard","A3 PSP","Stratification","Box & Whisker"],"Risk management gaps":["Risk Management","FMEA","SWOT Analysis","5 Whys","Logic Tree","Risk Register","Change Mgmt Process"]},
+  "Finance & Accounting":{"Cost overruns":["KPI Dashboard","Value Stream Map","Waste ID","DMAIC","A3 PSP","Logic Tree"],"Budget variance":["SPC (Control)","Box & Whisker","KPI Dashboard","Balanced Scorecard","Benchmarking"],"Inefficient approvals":["Value Stream Map","PDCA","Work Instructions","Comms Standard","5S"],"Poor financial visibility":["Balanced Scorecard","KPI Dashboard","SMF Management","Stratification","CI Activity Sheet","Action CI Tracker"],"Audit findings":["5 Whys","8D PSP","FMEA","Work Instructions","Deviation of Std"]},
+  "Human Resources":{"High employee turnover":["Skills Matrix","NLC Principles","Customer Feedback","Feedback Rules","Design Thinking","Benchmarking"],"Skill gaps":["Skills Matrix","Multiskilling","Training of Std","Work Instructions","Benchmarking"],"Low engagement":["NLC Principles","Design Thinking","Feedback Rules","Leading Workshop","Customer Gemba","Brainstorming","Change Mgmt Process"],"Ineffective onboarding":["Work Instructions","Training of Std","Skills Matrix","Intro of Standard","SFM Rules"],"Performance management issues":["KPI Dashboard","Balanced Scorecard","A3 PSP","Feedback Rules","CI Activity Sheet"]},
+  "Information Technology":{"System downtime":["8D PSP","5 Whys","FMEA","Risk Management","OEE","CI Activity Sheet"],"Poor change management":["PDCA","Work Instructions","Intro of Standard","Project Charter","Stakeholder ID","Change Mgmt Process"],"Cybersecurity risks":["Risk Management","FMEA","Deviation of Std","Training of Std","GO & See"],"Slow IT service delivery":["Value Stream Map","Kanban","DMAIC","Bottleneck Walk","Waste ID"],"Data quality issues":["SPC (Control)","7 Quality Tools","5 Whys","DMAIC","Stratification"]},
+  "Marketing & Communications":{"Poor brand consistency":["Work Instructions","Comms Standard","Training of Std","Revision of Std","SFM Rules"],"Low campaign ROI":["KPI Dashboard","A3 PSP","PDCA","Benchmarking","DMAIC","Stratification"],"Slow content production":["Agile","Kanban","Gantt Chart","Value Stream Map","Waste ID"],"Weak customer insights":["Customer Feedback","Customer Gemba","NPS / Surveys","Design Thinking","Brainstorming"],"Misaligned messaging":["Stakeholder ID","Comms Standard","Leading Workshop","Brainstorming","Hoshin Kanri"]},
+  "Sales & Business Development":{"Forecast inaccuracy":["SPC (Control)","Box & Whisker","KPI Dashboard","Benchmarking","Stratification"],"Long sales cycles":["Value Stream Map","Waste ID","DMAIC","A3 PSP","CRM Process Review"],"Low win rates":["Benchmarking","Competitive Analysis","Customer Gemba","Alt Solutions Eval","Design Thinking"],"Poor lead conversion":["CRM Process Review","Kanban","KPI Dashboard","5 Whys","CI Activity Sheet"],"Customer retention issues":["Customer Feedback","NPS / Surveys","NLC Principles","8D PSP","Customer Gemba"]},
+  "Customer Service":{"Slow response times":["Kanban","Value Stream Map","SFM Rules","SMF Management","SMED"],"Poor action tracking":["CI Activity Sheet","SMF Management","KPI Dashboard","Meeting Guide","Tactical Plan","Daily Meeting Mgmt","Action CI Tracker"],"Low customer satisfaction":["Customer Feedback","Customer Gemba","8D PSP","DMAIC","NLC Principles","NPS / Surveys"],"Unresolved complaints":["8D PSP","5 Whys","A3 PSP","Feedback Rules","CI Activity Sheet"],"High escalation rate":["FMEA","5 Whys","Work Instructions","Training of Std","Deviation of Std"]},
+  "Operations & Supply Chain":{"Process bottlenecks":["Bottleneck Walk","Value Stream Map","Yamazumi","OEE","Waste ID","DMAIC","VSM Data Capture"],"High operating costs":["Value Stream Map","Waste ID","DMAIC","Benchmarking","12 Step Kaizen","Kaizen Event Report","VSM Data Capture"],"Supply chain disruptions":["Risk Management","FMEA","Kanban","JIT","Heijunka","Risk Register"],"Inventory imbalances":["Kanban","JIT","Heijunka","Value Stream Map","SPC (Control)","VSM Data Capture"],"Schedule delays":["Heijunka","Gantt Chart","SMF Management","Tactical Plan","KPI Dashboard"]},
+  "Production & Manufacturing":{"Machine downtime":["OEE","Equip. Performance","SMED","8D PSP","FMEA","5 Whys"],"High defect rates":["7 Quality Tools","SPC (Control)","DMAIC","FMEA","8D PSP","Stratification"],"Waste & inefficiency":["Waste ID","Value Stream Map","5S","12 Step Kaizen","DMAIC","Yamazumi","Kaizen Event Report"],"Adherence to schedule":["SMF Management","KPI Dashboard","Heijunka","Kanban","Meeting Guide","Daily Meeting Mgmt"],"Low OEE":["OEE","Equip. Performance","SMED","Bottleneck Walk","Value Stream Map","FMEA"]},
+  "Quality & Compliance":{"High defect / error rates":["7 Quality Tools","SPC (Control)","DMAIC","8D PSP","FMEA","Box & Whisker"],"Ineffective controls":["SPC (Control)","Work Instructions","Training of Std","FMEA","Deviation of Std"],"Regulatory non-compliance":["Risk Management","Work Instructions","FMEA","Revision of Std","Training of Std","Risk Register"],"Audit findings":["5 Whys","8D PSP","Deviation of Std","CI Activity Sheet","A3 PSP"],"Escape defects":["FMEA","SPC (Control)","7 Quality Tools","8D PSP","5 Whys"]},
+  "Research & Development":{"Long development cycles":["Early Product Dev","Project Mgmt","Agile","Gantt Chart","DMAIC","Change Mgmt Process"],"Poor collaboration":["Design Thinking","Agile","Brainstorming","Leading Workshop","Comms Standard"],"Design-to-launch gaps":["Early Product Dev","FMEA","Value Stream Map","Work Instructions","Design of Expts"],"Late product launches":["Project Charter","Gantt Chart","Tactical Plan","Project Mgmt","KPI Dashboard"],"Innovation pipeline gaps":["Design Thinking","Brainstorming","Alt Solutions Eval","Benchmarking","SWOT Analysis"]},
+  "Health, Safety & Environment":{"Unsafe acts & behaviours":["5S","Work Instructions","Training of Std","Risk Management","GO & See","NLC Principles","Risk Register"],"Poor risk identification":["Risk Management","FMEA","5 Whys","8D PSP","SWOT Analysis"],"Low safety awareness":["Training of Std","Comms Standard","NLC Principles","Leading Workshop","GO & See","Change Mgmt Process"],"Incident recurrence":["5 Whys","8D PSP","FMEA","Deviation of Std","CI Activity Sheet","Action CI Tracker"],"Regulatory non-compliance":["Risk Management","Work Instructions","Revision of Std","Training of Std","Deviation of Std"]},
+};
+
+const DOT_COLORS={P:"#534AB7",Q:"#085041",S:"#BA7517",M:"#0C447C",C:"#712B13",R:"#72243E"};
+
+let activeFilter=-1, searchQ='', hlTool=-1;
+
+function buildTable(){
+  const t=document.getElementById('tbl');
+  let h='<thead><tr><th class="th-dept">Department</th><th class="th-prob">Problem</th>';
+  TOOLS.forEach((tool,ti)=>{
+    const col=DOT_COLORS[tool.c];
+    const pdfPath=getPdfPath(tool);
+    h+=`<th class="th-tool" data-ti="${ti}" style="color:${col}">`;
+    h+=`<a class="th-tool-inner" href="${pdfPath}" target="_blank" title="Open ${tool.n} PDF guide">${tool.n}</a>`;
+    h+='</th>';
+  });
+  h+='</tr></thead><tbody>';
+  DEPTS.forEach((dept,di)=>{
+    dept.problems.forEach((prob,pi)=>{
+      const toolsForCell=(MATRIX[dept.name]||{})[prob]||[];
+      h+=`<tr data-di="${di}" data-prob="${prob.toLowerCase()}">`;
+      if(pi===0){
+        h+=`<td class="dept-label" rowspan="${dept.problems.length}" style="background:${DEPT_BG[di]}">`;
+        h+=`<div class="dept-label-inner">${dept.name}</div></td>`;
+      }
+      h+=`<td class="th-prob">${prob}</td>`;
+      TOOLS.forEach((tool,ti)=>{
+        const has=toolsForCell.includes(tool.n);
+        const mc=has?'mark-'+tool.c:'';
+        const col=DOT_COLORS[tool.c];
+        const esc=s=>s.replace(/'/g,"\\'");
+        h+=`<td class="td-mark ${mc}" data-ti="${ti}" data-has="${has}"`;
+        if(has) h+=` onclick="openModal('${esc(tool.n)}','${esc(dept.name)}','${esc(prob)}')"`;
+        h+='>';
+        if(has) h+=`<span class="dot" style="color:${col}" title="Open ${tool.n}">●</span>`;
+        h+='</td>';
+      });
+      h+='</tr>';
+    });
+  });
+  h+='</tbody>';
+  t.innerHTML=h;
+}
+
+function openModal(toolName,dept,prob){
+  const tool=TOOL_MAP[toolName]; if(!tool) return;
+  const pal=CAT[tool.c];
+  // Style modal head
+  const head=document.getElementById('modal-head');
+  head.style.background=pal.bg;
+  const badge=document.getElementById('m-badge');
+  badge.textContent=pal.label;
+  document.getElementById('m-title').textContent=tool.n;
+  document.getElementById('m-purpose').textContent=tool.purpose;
+  document.getElementById('m-when').textContent=tool.when;
+  document.getElementById('m-out').textContent=tool.output;
+  document.getElementById('m-metric').textContent=tool.metric;
+  document.getElementById('m-cat2').textContent=pal.label;
+  document.getElementById('m-dept').textContent=prob+' · '+dept;
+  // PDF
+  const pdfLink=document.getElementById('m-pdf-link');
+  pdfLink.href=getPdfPath(tool); pdfLink.target='_blank';
+  pdfLink.classList.remove('ml-pdf-disabled');
+  pdfLink.querySelector('.modal-link-sub').textContent='One-page visual guide — print or display';
+  // HTML
+  document.getElementById('m-html-link').href=tool.f+'.html';
+  // Excel
+  const xl=document.getElementById('m-xl-link');
+  xl.href=tool.f+'.xlsx';
+  xl.removeAttribute('download');
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function showColTip(th,e){
+  const ti=parseInt(th.dataset.ti);
+  const tool=TOOLS[ti]; if(!tool) return;
+  const pal=CAT[tool.c];
+  document.getElementById('ct-name').textContent=tool.n;
+  const ct=document.getElementById('ct-cat'); ct.textContent=pal.label; ct.style.color=pal.dark;
+  document.getElementById('ct-purpose').textContent=tool.purpose;
+  const tip=document.getElementById('ctip');
+  tip.style.display='block';
+  const tw=tip.offsetWidth||260,th2=tip.offsetHeight||130;
+  let lx=e.clientX+14,ly=e.clientY+14;
+  if(lx+tw>window.innerWidth-10) lx=e.clientX-tw-8;
+  if(ly+th2>window.innerHeight-10) ly=e.clientY-th2-8;
+  tip.style.left=lx+'px'; tip.style.top=ly+'px';
+}
+document.addEventListener('mousemove',e=>{
+  const th=e.target.closest('th.th-tool');
+  const ctip=document.getElementById('ctip');
+  if(th&&!e.target.closest('.th-tool-inner')) showColTip(th,e);
+  else ctip.style.display='none';
+});
+document.getElementById('tbl').addEventListener('click',e=>{
+  const th=e.target.closest('th.th-tool');
+  if(th&&!e.target.closest('.th-tool-inner')){
+    const ti=parseInt(th.dataset.ti);
+    hlTool=hlTool===ti?-1:ti; applyFilters();
+  }
+});
+
+function buildPills(){
+  const con=document.getElementById('pills');
+  [{label:"All",cat:-1},{label:"Leadership",cat:0},{label:"People & tech",cat:6},
+   {label:"Commercial",cat:5},{label:"Operations",cat:2},{label:"Quality",cat:1},{label:"HSE",cat:4}
+  ].forEach(g=>{
+    const p=document.createElement('span');
+    p.className='pill'+(g.cat===-1?' active':'');
+    p.dataset.cat=g.cat; p.textContent=g.label; con.appendChild(p);
+  });
+  con.addEventListener('click',e=>{
+    const p=e.target.closest('.pill'); if(!p) return;
+    con.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active'); activeFilter=parseInt(p.dataset.cat); applyFilters();
+  });
+}
+
+function applyFilters(){
+  const q=searchQ.toLowerCase();
+  let visProbs=0,hlCount=0;
+  document.querySelectorAll('tr[data-di]').forEach(tr=>{
+    const di=parseInt(tr.dataset.di);
+    const dept=DEPTS[di]; const prob=tr.dataset.prob||'';
+    const show=(activeFilter===-1||dept.cat===activeFilter)&&(!q||dept.name.toLowerCase().includes(q)||prob.includes(q));
+    tr.classList.toggle('row-hidden',!show);
+    if(show){
+      visProbs++;
+      if(hlTool>=0&&tr.querySelector(`td[data-ti="${hlTool}"][data-has="true"]`)) hlCount++;
+    }
+  });
+  document.querySelectorAll('th.th-tool').forEach(th=>th.classList.toggle('hl',hlTool===parseInt(th.dataset.ti)));
+  document.getElementById('sProb').textContent=visProbs;
+  document.getElementById('sHl').textContent=hlTool>=0?hlCount+' uses':'—';
+  document.getElementById('sDept').textContent=DEPTS.filter(d=>activeFilter===-1||d.cat===activeFilter).length;
+}
+
+buildTable();buildPills();
+document.getElementById('sTool').textContent=TOOLS.length;
+document.getElementById('sProb').textContent=DEPTS.reduce((a,d)=>a+d.problems.length,0);
+document.getElementById('srch').addEventListener('input',e=>{searchQ=e.target.value;applyFilters();});
+</script>
+</body>
+</html>

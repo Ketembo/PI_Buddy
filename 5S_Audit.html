@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:13px;color:#1a1a1a;background:#f5f5f3;min-height:100vh}
+.page{max-width:1040px;margin:0 auto;padding:24px}
+.hdr{padding:20px 24px;margin-bottom:18px;border-radius:10px;color:#fff;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.hdr h1{font-size:22px;font-weight:700;margin-bottom:3px}
+.hdr p{font-size:11.5px;opacity:.85;line-height:1.4}
+.meta-grid{display:grid;gap:8px;margin-bottom:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.ml{font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.mi{background:#fff;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:13px;width:100%;font-family:Arial}
+.mi:focus{outline:none;border-color:#2E75B6}
+.sec{background:#fff;border-radius:10px;border:1px solid #e5e5e5;margin-bottom:14px;overflow:hidden}
+.sh{padding:11px 16px;font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;print-color-adjust:exact}
+.sh .cd{opacity:.65;font-size:10px;font-weight:500;background:rgba(255,255,255,.15);padding:2px 7px;border-radius:10px}
+.sg{padding:8px 16px;font-size:11px;color:#666;border-bottom:1px solid #eee;font-style:italic;line-height:1.5;background:#fafaf8}
+.sb{padding:14px 16px}
+.fl{font-size:11px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+textarea{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:8px 10px;font-size:12.5px;font-family:Arial;resize:vertical;min-height:48px;line-height:1.5}
+textarea:focus{outline:none;border-color:#2E75B6}
+select{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:12.5px;font-family:Arial;background:#fff}
+select:focus{outline:none;border-color:#2E75B6}
+input[type=text],input[type=date],input[type=number]{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:12.5px;font-family:Arial}
+input:focus{outline:none;border-color:#2E75B6}
+.fw{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.tw{overflow-x:auto;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{padding:8px 10px;font-size:10.5px;font-weight:700;text-align:left;color:#fff;white-space:nowrap;print-color-adjust:exact}
+td{padding:7px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+td input,td select,td textarea{min-width:70px;width:100%}
+.btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:700;transition:all .15s}
+.bp{background:#2E75B6;color:#fff}.bp:hover{background:#1F4E79}
+.bo{background:#fff;color:#2E75B6;border:2px solid #2E75B6}
+.tip{background:#FFF3D6;border-left:4px solid #BA7517;padding:9px 13px;border-radius:0 7px 7px 0;font-size:11.5px;color:#633806;margin:10px 0;line-height:1.5}
+.tip b{color:#BA7517}
+.info{background:#E6F1FB;border-left:4px solid #2E75B6;padding:9px 13px;border-radius:0 7px 7px 0;font-size:11.5px;color:#1F4E79;margin:10px 0}
+.badge{display:inline-block;padding:3px 9px;border-radius:12px;font-size:10.5px;font-weight:700;text-transform:uppercase}
+.actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.num-lg{font-size:32px;font-weight:700;text-align:center;padding:16px;border-radius:8px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.stat-card{border-radius:8px;padding:12px 10px;text-align:center}
+.stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.stat-val{font-size:24px;font-weight:700}
+@media print{body{background:#fff}.page{padding:8px}.actions{display:none}textarea,input,select{border:1px solid #ccc!important}}
+</style><title>5S Workplace Audit</title></head>
+<body><div class="page">
+<div class="hdr" style="background:#085041"><h1>5S Workplace Audit</h1><p>Score each item 0–4: 0=Absent  1=Poor  2=Fair  3=Good  4=Excellent  |  Max 100 points</p></div>
+
+<div class="g4 meta-grid">
+  <div><div class="ml">Area / Location</div><input type="text" class="mi"></div>
+  <div><div class="ml">Auditor</div><input type="text" class="mi"></div>
+  <div><div class="ml">Date</div><input type="date" class="mi"></div>
+  <div><div class="ml">Previous Score</div><input type="number" class="mi" placeholder="e.g. 72"></div>
+</div>
+<div class="card-grid" id="scoreCards">
+  <div class="stat-card" style="background:#E1F5EE"><div class="stat-label" style="color:#085041">S1 Sort</div><div class="stat-val" style="color:#085041" id="sc1">0/20</div></div>
+  <div class="stat-card" style="background:#E1F5EE"><div class="stat-label" style="color:#085041">S2 Set</div><div class="stat-val" style="color:#085041" id="sc2">0/20</div></div>
+  <div class="stat-card" style="background:#E1F5EE"><div class="stat-label" style="color:#085041">S3 Shine</div><div class="stat-val" style="color:#085041" id="sc3">0/20</div></div>
+  <div class="stat-card" style="background:#E1F5EE"><div class="stat-label" style="color:#085041">S4 Standardise</div><div class="stat-val" style="color:#085041" id="sc4">0/20</div></div>
+  <div class="stat-card" style="background:#E1F5EE"><div class="stat-label" style="color:#085041">S5 Sustain</div><div class="stat-val" style="color:#085041" id="sc5">0/20</div></div>
+  <div class="stat-card" style="background:#085041"><div class="stat-label" style="color:#9FE1CB">TOTAL SCORE</div><div class="stat-val" style="color:#fff" id="sc-total">0/100</div></div>
+  <div class="stat-card" style="background:#F0FAF6;grid-column:span 2"><div class="stat-label" style="color:#085041">Rating</div><div style="font-size:18px;font-weight:700;color:#085041" id="sc-rating">—</div></div>
+</div><div class="sec"><div class="sh" style="background:#085041"><span class="cd">S1</span>Sort (Seiri)</div>
+<div class="sb"><table><thead><tr>
+  <th style="background:#085041;min-width:300px">Audit Criteria</th>
+  <th style="background:#085041;min-width:200px">Audit Question</th>
+  <th style="background:#085041;width:80px;text-align:center">Score (0–4)</th>
+  <th style="background:#085041;min-width:200px">Finding / Action Required</th>
+</tr></thead><tbody><tr>
+  <td style="font-weight:600;font-size:12px">Items not needed for current work are removed or red-tagged</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are there any items in the area that are not needed for current work?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s1-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Only the correct tools, materials, and documents are present</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is every item here actually needed and in the right quantity?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s1-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">No excess inventory or obsolete items in the work area</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is there any excess stock, expired material, or broken equipment present?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s1-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Red tag area exists and is managed — items cleared within 48 hrs</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is the red tag process active and followed?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s1-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Decision criteria for needed vs not-needed is known by all</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Can every team member explain what belongs here and what doesn't?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s1-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr></tbody></table></div></div><div class="sec"><div class="sh" style="background:#0F6E56"><span class="cd">S2</span>Set in Order (Seiton)</div>
+<div class="sb"><table><thead><tr>
+  <th style="background:#0F6E56;min-width:300px">Audit Criteria</th>
+  <th style="background:#0F6E56;min-width:200px">Audit Question</th>
+  <th style="background:#0F6E56;width:80px;text-align:center">Score (0–4)</th>
+  <th style="background:#0F6E56;min-width:200px">Finding / Action Required</th>
+</tr></thead><tbody><tr>
+  <td style="font-weight:600;font-size:12px">Every item has a clearly defined, labelled storage location</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Does everything have a home? Is every home labelled?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s2-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Items are returned to their location after every use</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are items consistently found in their designated places?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s2-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Visual controls (shadow boards, labels, floor lines) are in place</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Can anyone find anything without asking?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s2-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Frequently used items are within arm's reach; rarely used items further away</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is the layout ergonomic and logical?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s2-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Safety and emergency equipment is immediately visible and accessible</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Can safety/emergency items be found within 10 seconds?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s2-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr></tbody></table></div></div><div class="sec"><div class="sh" style="background:#1D9E75"><span class="cd">S3</span>Shine (Seiso)</div>
+<div class="sb"><table><thead><tr>
+  <th style="background:#1D9E75;min-width:300px">Audit Criteria</th>
+  <th style="background:#1D9E75;min-width:200px">Audit Question</th>
+  <th style="background:#1D9E75;width:80px;text-align:center">Score (0–4)</th>
+  <th style="background:#1D9E75;min-width:200px">Finding / Action Required</th>
+</tr></thead><tbody><tr>
+  <td style="font-weight:600;font-size:12px">Work area, floors, and surfaces are clean and free of contamination</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is the area clean enough to detect abnormalities?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s3-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Equipment is inspected during cleaning — defects noted and actioned</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is cleaning used as an inspection activity?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s3-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Sources of contamination (leaks, spills, dust) are identified and fixed</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are causes of contamination being addressed at source?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s3-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Cleaning is part of the daily routine, not an occasional event</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is there evidence of daily cleaning habits?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s3-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Cleaning tools and supplies are accessible and properly stored</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are cleaning materials in good condition and easy to find?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s3-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr></tbody></table></div></div><div class="sec"><div class="sh" style="background:#5DCAA5"><span class="cd">S4</span>Standardise (Seiketsu)</div>
+<div class="sb"><table><thead><tr>
+  <th style="background:#5DCAA5;min-width:300px">Audit Criteria</th>
+  <th style="background:#5DCAA5;min-width:200px">Audit Question</th>
+  <th style="background:#5DCAA5;width:80px;text-align:center">Score (0–4)</th>
+  <th style="background:#5DCAA5;min-width:200px">Finding / Action Required</th>
+</tr></thead><tbody><tr>
+  <td style="font-weight:600;font-size:12px">Visual standards are documented and displayed at the point of use</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are photo standards or visual boards posted and current?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s4-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">5S responsibilities are clearly assigned — who does what, by when</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is there a cleaning/inspection rota with named owners?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s4-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">All 3 prior S's are maintained consistently across ALL shifts</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Does the area look the same on night shift as day shift?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s4-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Deviation from the standard is immediately visible (abnormal is obvious)</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is it obvious when something is out of place?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s4-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">Cleaning and inspection schedules are posted and followed</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are completed schedules visible with dates and signatures?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s4-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr></tbody></table></div></div><div class="sec"><div class="sh" style="background:#085041"><span class="cd">S5</span>Sustain (Shitsuke)</div>
+<div class="sb"><table><thead><tr>
+  <th style="background:#085041;min-width:300px">Audit Criteria</th>
+  <th style="background:#085041;min-width:200px">Audit Question</th>
+  <th style="background:#085041;width:80px;text-align:center">Score (0–4)</th>
+  <th style="background:#085041;min-width:200px">Finding / Action Required</th>
+</tr></thead><tbody><tr>
+  <td style="font-weight:600;font-size:12px">5S audit is conducted at the defined frequency — results posted</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are audit results displayed and visible to the team?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s5-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">All team members follow 5S standards without supervision</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is 5S a habit, not a performance for the auditor?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s5-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">All action items from the previous audit are implemented</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Are previous findings closed before the next audit?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s5-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">5S performance is a KPI reviewed at daily/weekly team meetings</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Is 5S part of the management system — not a separate activity?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s5-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr><tr>
+  <td style="font-weight:600;font-size:12px">5S discipline is improving or sustaining over time</td>
+  <td style="font-size:11px;color:#555;font-style:italic">Does the trend show improvement or stability?</td>
+  <td style="text-align:center;padding:4px"><select onchange="updateScores()" class="s5-score" style="width:54px;text-align:center;font-weight:700;font-size:14px;border-radius:6px;padding:4px"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></td>
+  <td><textarea style="min-height:36px" placeholder="Note finding or required action..."></textarea></td>
+</tr></tbody></table></div></div><script>
+function updateScores(){
+  const ratings=['★ POOR — Urgent action required','★★ NEEDS IMPROVEMENT','★★★ GOOD — Maintain focus','★★★★ EXCELLENT — World Class'];
+  let total=0;
+  [1,2,3,4,5].forEach(i=>{
+    const sels=document.querySelectorAll('.s'+i+'-score');
+    let sum=0; sels.forEach(s=>sum+=parseInt(s.value||0));
+    document.getElementById('sc'+i).textContent=sum+'/20';
+    total+=sum;
+    const el=document.getElementById('sc'+i);
+    el.style.color=sum>=16?'#085041':sum>=10?'#BA7517':'#9C0006';
+  });
+  document.getElementById('sc-total').textContent=total+'/100';
+  const ri=total>=90?3:total>=70?2:total>=50?1:0;
+  document.getElementById('sc-rating').textContent=ratings[ri];
+}
+</script>
+<div class="actions">
+  <button class="btn bp" onclick="window.print()">🖨 Print / Save as PDF</button>
+  <button class="btn bo" onclick="if(confirm('Clear all fields?'))document.querySelectorAll('input,textarea').forEach(e=>e.value=''),document.querySelectorAll('select').forEach(e=>e.selectedIndex=0)">↺ Clear Form</button>
+</div>
+</div><!-- PI Buddy autofill -->
+<script>
+(function(){
+  var qp=new URLSearchParams(location.search);
+  var keys=[]; qp.forEach(function(v,k){keys.push(k);});
+  if(!keys.length) return;
+  var has=function(k){return qp.has(k)&&qp.get(k)!=='';};
+  var claimed={};
+  function tryFill(labelEl){
+    var isMeta=labelEl.classList.contains('ml')||labelEl.classList.contains('meta-label');
+    var target=labelEl.nextElementSibling;
+    if(!target||!(target.tagName==='INPUT'||target.tagName==='TEXTAREA')) return;
+    if(target.value) return;
+    var t=(labelEl.textContent||'').toLowerCase().trim();
+    if(!claimed.title&&isMeta&&has('title')&&(t.indexOf('problem title')>=0||t==='problem'||t.indexOf('problem statement')>=0||t==='title')){
+      target.value=qp.get('title'); claimed.title=true; return;
+    }
+    if(!claimed.dept&&has('dept')&&t.indexOf('department')>=0){
+      target.value=qp.get('dept'); claimed.dept=true; return;
+    }
+    if(!claimed.area&&has('area')&&(t.indexOf('process / area')>=0||t.indexOf('product / process')>=0||t==='area'||t.indexOf('line')>=0)){
+      target.value=qp.get('area'); claimed.area=true; return;
+    }
+    if(!claimed.desc&&has('desc')&&(t.indexOf('what is')>=0||t.indexOf('specific problem')>=0||t.indexOf('problem description')>=0||t.indexOf('context')>=0)){
+      target.value=qp.get('desc'); claimed.desc=true; return;
+    }
+    if(!claimed.freq&&has('freq')&&(t.indexOf('how often')>=0||t.indexOf('frequency')>=0||t.indexOf('how many')>=0)){
+      target.value=qp.get('freq'); claimed.freq=true; return;
+    }
+    if(!claimed.impact&&has('impact')&&t.indexOf('impact')>=0){
+      target.value=qp.get('impact'); claimed.impact=true; return;
+    }
+  }
+  document.querySelectorAll('.ml,.meta-label,.fl,.field-label').forEach(tryFill);
+})();
+</script>
+<!-- PI Buddy AI Coach -->
+<style>
+.pib-coach-btn{
+  position:fixed;bottom:22px;right:22px;z-index:9000;
+  width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#7A4FD1,#4A2A7A);color:#fff;font-size:22px;
+  box-shadow:0 8px 24px rgba(74,42,122,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Segoe UI',Arial,sans-serif;
+}
+.pib-coach-btn:hover{transform:scale(1.06)}
+.pib-panel{
+  position:fixed;bottom:88px;right:22px;z-index:9000;
+  width:340px;max-width:calc(100vw - 32px);max-height:70vh;
+  background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);
+  display:none;flex-direction:column;overflow:hidden;
+  font-family:'Segoe UI',Arial,sans-serif;
+  border:1px solid #eee;
+}
+.pib-panel.open{display:flex}
+.pib-panel-head{
+  padding:14px 16px;background:linear-gradient(135deg,#2E1A5E,#4A2A7A);color:#fff;flex-shrink:0;
+}
+.pib-panel-title{font-size:13px;font-weight:800}
+.pib-panel-sub{font-size:10.5px;opacity:.75;margin-top:2px}
+.pib-panel-close{position:absolute;top:12px;right:14px;background:none;border:none;color:#fff;font-size:15px;cursor:pointer;opacity:.8}
+.pib-panel-body{padding:12px 14px;overflow-y:auto;flex:1;font-size:12px;color:#333}
+.pib-draft-btn{
+  width:100%;padding:9px;border-radius:9px;border:1.5px solid #D9C6FA;background:#F4EEFF;
+  color:#7A4FD1;font-size:11.5px;font-weight:800;cursor:pointer;margin-bottom:10px;
+}
+.pib-draft-btn:disabled{opacity:.5;cursor:not-allowed}
+.pib-msg{margin-bottom:10px;line-height:1.55}
+.pib-msg-role{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;color:#999}
+.pib-msg.pib-ai .pib-msg-role{color:#7A4FD1}
+.pib-panel-foot{padding:10px 12px;border-top:1px solid #eee;flex-shrink:0;display:flex;gap:6px}
+.pib-panel-input{
+  flex:1;padding:8px 10px;border-radius:8px;border:1.5px solid #e5e5e5;font-size:12px;
+  font-family:inherit;resize:none;
+}
+.pib-panel-send{
+  padding:0 12px;border-radius:8px;border:none;background:#7A4FD1;color:#fff;font-size:12px;
+  font-weight:800;cursor:pointer;
+}
+.pib-cfg-note{font-size:11px;color:#999;line-height:1.6;padding:6px 0}
+.pib-cfg-input{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid #e5e5e5;font-size:11.5px;margin:6px 0;font-family:monospace}
+.pib-drafted{background:#F4EEFF!important;border-left:3px solid #7A4FD1!important}
+.pib-loading{color:#7A4FD1;font-size:11.5px;font-weight:700}
+</style>
+<button class="pib-coach-btn" id="pib-coach-toggle" title="Ask PI Buddy">🤖</button>
+<div class="pib-panel" id="pib-panel">
+  <div class="pib-panel-head" style="position:relative">
+    <button class="pib-panel-close" id="pib-panel-close">✕</button>
+    <div class="pib-panel-title">🤖 PI Buddy Coach</div>
+    <div class="pib-panel-sub" id="pib-panel-sub"></div>
+  </div>
+  <div class="pib-panel-body" id="pib-panel-body"></div>
+  <div class="pib-panel-foot" id="pib-panel-foot" style="display:none;flex-direction:column;gap:6px">
+    <label style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:#888;cursor:pointer">
+      <input type="checkbox" id="pib-search-toggle" style="width:12px;height:12px">🌐 Allow web search for this question
+    </label>
+    <div style="display:flex;gap:6px">
+      <textarea class="pib-panel-input" id="pib-panel-input" rows="1" placeholder="Ask about this tool…"></textarea>
+      <button class="pib-panel-send" id="pib-panel-send">↑</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var AI_URL_KEY='pibuddy_ai_url', AI_SECRET_KEY='pibuddy_ai_secret';
+  var qp=new URLSearchParams(location.search);
+  // URL params can hand off config across file:// origins where localStorage isn't shared
+  if(qp.get('aiurl')) localStorage.setItem(AI_URL_KEY,qp.get('aiurl'));
+  if(qp.get('aisecret')) localStorage.setItem(AI_SECRET_KEY,qp.get('aisecret'));
+
+  function getCfg(){
+    return { url: localStorage.getItem(AI_URL_KEY)||'', secret: localStorage.getItem(AI_SECRET_KEY)||'' };
+  }
+  async function askAI(system,userText,allowSearch){
+    var cfg=getCfg();
+    if(!cfg.url) throw new Error('NO_CONFIG');
+    var headers={'Content-Type':'application/json'};
+    if(cfg.secret) headers['X-LearnBuddy-Secret']=cfg.secret;
+    var res=await fetch(cfg.url,{method:'POST',headers:headers,body:JSON.stringify({system:system,messages:[{role:'user',content:userText}],allowSearch:!!allowSearch})});
+    if(!res.ok) throw new Error('HTTP_'+res.status);
+    var data=await res.json();
+    var textBlocks=(data.content||[]).filter(function(b){return b.type==='text';});
+    if(!textBlocks.length) throw new Error('NO_TEXT');
+    var combined=textBlocks.map(function(b){return b.text;}).join('\n\n');
+    var sources={};
+    textBlocks.forEach(function(b){(b.citations||[]).forEach(function(c){ if(c.url) sources[c.url]=true; });});
+    var srcList=Object.keys(sources);
+    return srcList.length ? combined+'\n\nSources: '+srcList.join(', ') : combined;
+  }
+
+  var toolName=qp.get('tool')||document.title||'this tool';
+  var purpose=qp.get('purpose')||'';
+  var probTitle=qp.get('title')||'';
+  var probDept=qp.get('dept')||'';
+  var probDesc=qp.get('desc')||'';
+  var probFreq=qp.get('freq')||'';
+  var probImpact=qp.get('impact')||'';
+  var probArea=qp.get('area')||'';
+
+  function contextSummary(){
+    var bits=[];
+    if(probTitle) bits.push(probTitle);
+    if(probDept) bits.push(probDept);
+    return bits.length ? bits.join(' · ') : 'General use — no specific problem loaded';
+  }
+  function contextBlock(){
+    var lines=[];
+    if(probTitle) lines.push('Problem: '+probTitle);
+    if(probDept) lines.push('Department: '+probDept);
+    if(probDesc) lines.push('Description: '+probDesc);
+    if(probFreq) lines.push('Frequency: '+probFreq);
+    if(probImpact) lines.push('Impact: '+probImpact);
+    if(probArea) lines.push('Area/lines affected: '+probArea);
+    return lines.join('\n');
+  }
+  function baseSystem(){
+    return 'You are PI Buddy, a practical process-improvement coach for a South African automotive OEM manufacturing environment. The person has this tool open: "'+toolName+'". Purpose: '+purpose+'. '+(contextBlock()?('Known problem context:\n'+contextBlock()+'\n\n'):'')+'Answer directly and practically, 2-4 sentences unless asked for more. No markdown.';
+  }
+
+  var panel=document.getElementById('pib-panel');
+  var body=document.getElementById('pib-panel-body');
+  var foot=document.getElementById('pib-panel-foot');
+  var sub=document.getElementById('pib-panel-sub');
+  var opened=false;
+
+  function addMsg(role,text){
+    var d=document.createElement('div');
+    d.className='pib-msg'+(role==='PI Buddy'?' pib-ai':'');
+    d.innerHTML='<div class="pib-msg-role">'+role+'</div><div>'+text+'</div>';
+    body.appendChild(d);
+    body.scrollTop=body.scrollHeight;
+  }
+
+  function renderInitial(){
+    sub.textContent=contextSummary();
+    body.innerHTML='';
+    var cfg=getCfg();
+    if(!cfg.url){
+      body.innerHTML='<div class="pib-cfg-note">No AI proxy configured yet. Paste the same proxy URL you set up in PI Buddy (⚙️), or open PI Buddy and configure it there first — this page will pick it up automatically next time you arrive via a PI Buddy link.</div>'+
+        '<input class="pib-cfg-input" id="pib-cfg-url" placeholder="https://your-proxy.vercel.app/api/buddy">'+
+        '<input class="pib-cfg-input" id="pib-cfg-secret" placeholder="Secret (optional)">'+
+        '<button class="pib-draft-btn" id="pib-cfg-save">Save & continue</button>';
+      document.getElementById('pib-cfg-save').onclick=function(){
+        var u=document.getElementById('pib-cfg-url').value.trim();
+        var s=document.getElementById('pib-cfg-secret').value.trim();
+        if(!u) return;
+        localStorage.setItem(AI_URL_KEY,u);
+        localStorage.setItem(AI_SECRET_KEY,s);
+        renderInitial();
+      };
+      foot.style.display='none';
+      return;
+    }
+    foot.style.display='flex';
+    body.innerHTML='<button class="pib-draft-btn" id="pib-draft-btn">✏️ Draft first-pass answers for me</button>';
+    document.getElementById('pib-draft-btn').onclick=runDraft;
+    addMsg('PI Buddy','Hi — I can answer questions about how to use '+toolName+', or draft first-pass answers for the fields on this page based on the problem you came in with. What would help?');
+  }
+
+  async function runDraft(){
+    var btn=document.getElementById('pib-draft-btn');
+    if(btn){ btn.disabled=true; btn.textContent='Thinking…'; }
+    var labelEls=Array.prototype.slice.call(document.querySelectorAll('.ml,.meta-label,.fl,.field-label'));
+    var targets=[];
+    labelEls.forEach(function(el){
+      var t=el.nextElementSibling;
+      if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA')&&!t.value){
+        var label=(el.textContent||'').trim();
+        if(label) targets.push({label:label, el:t});
+      }
+    });
+    if(!targets.length){ addMsg('PI Buddy','All the fields I can see already have content — nothing to draft.'); if(btn) btn.remove(); return; }
+    var labelList=targets.map(function(t,i){return (i+1)+'. '+t.label;}).join('\n');
+    var sys=baseSystem()+'\n\nDraft concise first-pass answers for these fields (one per line, matched by number, no field left blank — write your best inference even if you have to make a reasonable assumption from the context). Field list:\n'+labelList+'\n\nRespond with ONLY a JSON array of strings, in the same order as the numbered list, nothing else.';
+    try{
+      var text=await askAI(sys,'Draft the answers now.');
+      var m=text.match(/\[[\s\S]*\]/);
+      if(!m) throw new Error('NO_JSON');
+      var arr=JSON.parse(m[0]);
+      var filled=0;
+      targets.forEach(function(t,i){
+        if(arr[i]){ t.el.value=arr[i]; t.el.classList.add('pib-drafted'); filled++; }
+      });
+      addMsg('PI Buddy','Drafted '+filled+' field'+(filled===1?'':'s')+' — highlighted in purple. Review and adjust before you rely on them; I filled in my best inference where the context was thin.');
+      if(btn) btn.remove();
+    }catch(err){
+      addMsg('PI Buddy','Could not draft answers right now ('+(err.message||'error')+'). You can still ask me questions below.');
+      if(btn){ btn.disabled=false; btn.textContent='✏️ Draft first-pass answers for me'; }
+    }
+  }
+
+  async function sendChat(){
+    var input=document.getElementById('pib-panel-input');
+    var q=input.value.trim();
+    if(!q) return;
+    var allowSearch=document.getElementById('pib-search-toggle').checked;
+    input.value='';
+    addMsg('You',q);
+    addMsg('PI Buddy','<span class="pib-loading">…thinking</span>');
+    try{
+      var text=await askAI(baseSystem(),q,allowSearch);
+      body.lastChild.querySelector('div:nth-child(2)').textContent=text;
+    }catch(err){
+      var msg=err.message==='NO_CONFIG'?'AI proxy not configured.':'Could not reach the AI proxy.';
+      body.lastChild.querySelector('div:nth-child(2)').textContent=msg;
+    }
+    body.scrollTop=body.scrollHeight;
+  }
+
+  document.getElementById('pib-coach-toggle').addEventListener('click',function(){
+    opened=!opened;
+    panel.classList.toggle('open',opened);
+    if(opened && !body.hasChildNodes()) renderInitial();
+  });
+  document.getElementById('pib-panel-close').addEventListener('click',function(){
+    opened=false; panel.classList.remove('open');
+  });
+  document.getElementById('pib-panel-send').addEventListener('click',sendChat);
+  document.getElementById('pib-panel-input').addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendChat(); }
+  });
+})();
+</script>
+</body></html>

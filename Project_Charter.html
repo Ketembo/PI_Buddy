@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:13px;color:#1a1a1a;background:#f5f5f3;min-height:100vh}
+.page{max-width:1040px;margin:0 auto;padding:24px}
+.hdr{padding:20px 24px;margin-bottom:18px;border-radius:10px;color:#fff;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.hdr h1{font-size:22px;font-weight:700;margin-bottom:3px}
+.hdr p{font-size:11.5px;opacity:.85;line-height:1.4}
+.meta-grid{display:grid;gap:8px;margin-bottom:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.ml{font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.mi{background:#fff;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:13px;width:100%;font-family:Arial}
+.mi:focus{outline:none;border-color:#2E75B6}
+.sec{background:#fff;border-radius:10px;border:1px solid #e5e5e5;margin-bottom:14px;overflow:hidden}
+.sh{padding:11px 16px;font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;print-color-adjust:exact}
+.sh .cd{opacity:.65;font-size:10px;font-weight:500;background:rgba(255,255,255,.15);padding:2px 7px;border-radius:10px}
+.sg{padding:8px 16px;font-size:11px;color:#666;border-bottom:1px solid #eee;font-style:italic;line-height:1.5;background:#fafaf8}
+.sb{padding:14px 16px}
+.fl{font-size:11px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+textarea{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:8px 10px;font-size:12.5px;font-family:Arial;resize:vertical;min-height:48px;line-height:1.5}
+textarea:focus{outline:none;border-color:#2E75B6}
+select{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:12.5px;font-family:Arial;background:#fff}
+select:focus{outline:none;border-color:#2E75B6}
+input[type=text],input[type=date],input[type=number]{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:12.5px;font-family:Arial}
+input:focus{outline:none;border-color:#2E75B6}
+.fw{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.tw{overflow-x:auto;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{padding:8px 10px;font-size:10.5px;font-weight:700;text-align:left;color:#fff;white-space:nowrap;print-color-adjust:exact}
+td{padding:7px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+td input,td select,td textarea{min-width:70px;width:100%}
+.btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:700;transition:all .15s}
+.bp{background:#2E75B6;color:#fff}.bp:hover{background:#1F4E79}
+.bo{background:#fff;color:#2E75B6;border:2px solid #2E75B6}
+.tip{background:#FFF3D6;border-left:4px solid #BA7517;padding:9px 13px;border-radius:0 7px 7px 0;font-size:11.5px;color:#633806;margin:10px 0;line-height:1.5}
+.tip b{color:#BA7517}
+.info{background:#E6F1FB;border-left:4px solid #2E75B6;padding:9px 13px;border-radius:0 7px 7px 0;font-size:11.5px;color:#1F4E79;margin:10px 0}
+.badge{display:inline-block;padding:3px 9px;border-radius:12px;font-size:10.5px;font-weight:700;text-transform:uppercase}
+.actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.num-lg{font-size:32px;font-weight:700;text-align:center;padding:16px;border-radius:8px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.stat-card{border-radius:8px;padding:12px 10px;text-align:center}
+.stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.stat-val{font-size:24px;font-weight:700}
+@media print{body{background:#fff}.page{padding:8px}.actions{display:none}textarea,input,select{border:1px solid #ccc!important}}
+</style><title>Project Charter</title></head>
+<body><div class="page">
+<div class="hdr" style="background:#3C3489"><h1>Project Charter</h1><p>Complete before any work begins. A signed charter is the team's contract — scope, goals, and authority on one page.</p></div>
+
+<div class="g4 meta-grid">
+  <div><div class="ml">Project Name</div><input type="text" class="mi"></div>
+  <div><div class="ml">Project #</div><input type="text" class="mi"></div>
+  <div><div class="ml">Sponsor</div><input type="text" class="mi"></div>
+  <div><div class="ml">Project Manager</div><input type="text" class="mi"></div>
+</div>
+<div class="g5 meta-grid">
+  <div><div class="ml">Start Date</div><input type="date" class="mi"></div>
+  <div><div class="ml">End Date</div><input type="date" class="mi"></div>
+  <div><div class="ml">Budget</div><input type="text" class="mi" placeholder="e.g. $50,000"></div>
+  <div><div class="ml">Priority</div><select class="mi"><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select></div>
+  <div><div class="ml">RAG Status</div><select class="mi"><option>🟢 Green</option><option>🟡 Amber</option><option>🔴 Red</option></select></div>
+</div><div class="sec"><div class="sh" style="background:#3C3489">Problem Statement</div>
+<div class="sg">What is the problem? Quantify the impact (cost, quality, safety, customer). Why must this be solved now, not later?</div><div class="sb"><div class="fw"><div class="fl">Problem Description</div><textarea placeholder="Specific, measurable description of the problem" rows="2"></textarea></div><div class="fw"><div class="fl">Business Impact</div><textarea placeholder="$, %, units — use numbers not adjectives" rows="2"></textarea></div><div class="fw"><div class="fl">Why Now?</div><textarea placeholder="What happens if we don't solve this in the next 90 days?" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#534AB7">Scope — What IS included</div>
+<div class="sg">Be specific: which processes, locations, products, time periods, systems. Vague scope = inevitable scope creep.</div><div class="sb"><div class="fw"><div class="fl">Processes / Areas in Scope</div><textarea placeholder="List specific process names and locations" rows="2"></textarea></div><div class="fw"><div class="fl">Products / Services in Scope</div><textarea placeholder="Which products, customer segments, or services" rows="2"></textarea></div><div class="fw"><div class="fl">Time Period</div><textarea placeholder="Start and end of the scope boundary" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#7F77DD">Scope — What is NOT included</div>
+<div class="sg">Explicitly state exclusions. This is as important as inclusions — it prevents scope creep and manages stakeholder expectations.</div><div class="sb"><div class="fw"><div class="fl">Out of Scope — Process / Area</div><textarea placeholder="What won't be touched" rows="2"></textarea></div><div class="fw"><div class="fl">Out of Scope — System / Data</div><textarea placeholder="What systems or data are excluded" rows="2"></textarea></div><div class="fw"><div class="fl">Reason for Exclusion</div><textarea placeholder="Brief rationale for each exclusion" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#3C3489">Objectives & Success Criteria</div>
+<div class="sg">3–5 SMART objectives. Each must be specific, measurable, and time-bound. Define what done looks like.</div><div class="sb"><div class="fw"><div class="fl">Objective 1 (with baseline and target)</div><textarea placeholder="e.g. Reduce defect rate from 3.2% to <0.5% by Q2" rows="2"></textarea></div><div class="fw"><div class="fl">Objective 2</div><textarea placeholder="" rows="2"></textarea></div><div class="fw"><div class="fl">Objective 3</div><textarea placeholder="" rows="2"></textarea></div><div class="fw"><div class="fl">How success will be verified</div><textarea placeholder="Who measures what, how, and when" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#534AB7">Team & Roles</div>
+<div class="sg">Name each person, their role, and their time commitment. Unresourced projects fail.</div><div class="sb"><div class="fw"><div class="fl">Project Sponsor</div><textarea placeholder="Name + authority to commit resources and remove obstacles" rows="2"></textarea></div><div class="fw"><div class="fl">Project Manager</div><textarea placeholder="Name + responsibility for day-to-day delivery" rows="2"></textarea></div><div class="fw"><div class="fl">Core Team Members</div><textarea placeholder="Name | Dept | Role | Hours/week commitment" rows="2"></textarea></div><div class="fw"><div class="fl">Subject Matter Experts</div><textarea placeholder="Name | Topic | When needed" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#7F77DD">Key Milestones</div>
+<div class="sg">No more than 8 milestones. Each must be a verifiable deliverable — not an activity.</div><div class="sb"><div class="fw"><div class="fl">Milestone 1 | Target Date | Owner</div><textarea placeholder="e.g. Current state mapped | 15 Jan | Sam" rows="2"></textarea></div><div class="fw"><div class="fl">Milestone 2 | Target Date | Owner</div><textarea placeholder="" rows="2"></textarea></div><div class="fw"><div class="fl">Milestone 3 | Target Date | Owner</div><textarea placeholder="" rows="2"></textarea></div><div class="fw"><div class="fl">Final Milestone — Project Closure</div><textarea placeholder="Date + success criteria confirmed" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#3C3489">Key Risks & Assumptions</div>
+<div class="sg">Top 3–5 risks with mitigation. List assumptions the plan depends on — if an assumption is wrong, the plan fails.</div><div class="sb"><div class="fw"><div class="fl">Risk 1 — Likelihood / Impact / Mitigation</div><textarea placeholder="" rows="2"></textarea></div><div class="fw"><div class="fl">Risk 2 — Likelihood / Impact / Mitigation</div><textarea placeholder="" rows="2"></textarea></div><div class="fw"><div class="fl">Key Assumptions</div><textarea placeholder="What must remain true for this plan to work?" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#534AB7">Quantified Benefits</div>
+<div class="sg">State the business case in numbers. If you can't quantify the benefit, question whether this project should be prioritised.</div><div class="sb"><div class="fw"><div class="fl">Financial Benefit ($ per year)</div><textarea placeholder="Hard savings or revenue impact" rows="2"></textarea></div><div class="fw"><div class="fl">Efficiency Benefit (hours/year saved)</div><textarea placeholder="People, machine, or process time" rows="2"></textarea></div><div class="fw"><div class="fl">Quality / Risk Benefit</div><textarea placeholder="Defect reduction %, compliance improvement" rows="2"></textarea></div><div class="fw"><div class="fl">Payback Period</div><textarea placeholder="When will investment be recovered?" rows="2"></textarea></div></div></div><div class="sec"><div class="sh" style="background:#1F3864">Approvals & Sign-Off</div>
+<div class="sg">A signed charter is the team's contract. Signature = commitment to scope, resources, and timeline.</div>
+<div class="sb"><div class="g4">
+  <div><div class="fl">Project Sponsor</div><input type="text" placeholder="Name + date"><textarea style="min-height:52px;margin-top:6px" placeholder="Signature / confirmation"></textarea></div>
+  <div><div class="fl">Project Manager</div><input type="text" placeholder="Name + date"><textarea style="min-height:52px;margin-top:6px" placeholder="Signature / confirmation"></textarea></div>
+  <div><div class="fl">Finance Lead</div><input type="text" placeholder="Name + date"><textarea style="min-height:52px;margin-top:6px" placeholder="Signature / confirmation"></textarea></div>
+  <div><div class="fl">HR / Operations Lead</div><input type="text" placeholder="Name + date"><textarea style="min-height:52px;margin-top:6px" placeholder="Signature / confirmation"></textarea></div>
+</div></div></div>
+<div class="actions">
+  <button class="btn bp" onclick="window.print()">🖨 Print / Save as PDF</button>
+  <button class="btn bo" onclick="if(confirm('Clear all fields?'))document.querySelectorAll('input,textarea').forEach(e=>e.value=''),document.querySelectorAll('select').forEach(e=>e.selectedIndex=0)">↺ Clear Form</button>
+</div>
+</div><!-- PI Buddy autofill -->
+<script>
+(function(){
+  var qp=new URLSearchParams(location.search);
+  var keys=[]; qp.forEach(function(v,k){keys.push(k);});
+  if(!keys.length) return;
+  var has=function(k){return qp.has(k)&&qp.get(k)!=='';};
+  var claimed={};
+  function tryFill(labelEl){
+    var isMeta=labelEl.classList.contains('ml')||labelEl.classList.contains('meta-label');
+    var target=labelEl.nextElementSibling;
+    if(!target||!(target.tagName==='INPUT'||target.tagName==='TEXTAREA')) return;
+    if(target.value) return;
+    var t=(labelEl.textContent||'').toLowerCase().trim();
+    if(!claimed.title&&isMeta&&has('title')&&(t.indexOf('problem title')>=0||t==='problem'||t.indexOf('problem statement')>=0||t==='title')){
+      target.value=qp.get('title'); claimed.title=true; return;
+    }
+    if(!claimed.dept&&has('dept')&&t.indexOf('department')>=0){
+      target.value=qp.get('dept'); claimed.dept=true; return;
+    }
+    if(!claimed.area&&has('area')&&(t.indexOf('process / area')>=0||t.indexOf('product / process')>=0||t==='area'||t.indexOf('line')>=0)){
+      target.value=qp.get('area'); claimed.area=true; return;
+    }
+    if(!claimed.desc&&has('desc')&&(t.indexOf('what is')>=0||t.indexOf('specific problem')>=0||t.indexOf('problem description')>=0||t.indexOf('context')>=0)){
+      target.value=qp.get('desc'); claimed.desc=true; return;
+    }
+    if(!claimed.freq&&has('freq')&&(t.indexOf('how often')>=0||t.indexOf('frequency')>=0||t.indexOf('how many')>=0)){
+      target.value=qp.get('freq'); claimed.freq=true; return;
+    }
+    if(!claimed.impact&&has('impact')&&t.indexOf('impact')>=0){
+      target.value=qp.get('impact'); claimed.impact=true; return;
+    }
+  }
+  document.querySelectorAll('.ml,.meta-label,.fl,.field-label').forEach(tryFill);
+})();
+</script>
+<!-- PI Buddy AI Coach -->
+<style>
+.pib-coach-btn{
+  position:fixed;bottom:22px;right:22px;z-index:9000;
+  width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#7A4FD1,#4A2A7A);color:#fff;font-size:22px;
+  box-shadow:0 8px 24px rgba(74,42,122,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Segoe UI',Arial,sans-serif;
+}
+.pib-coach-btn:hover{transform:scale(1.06)}
+.pib-panel{
+  position:fixed;bottom:88px;right:22px;z-index:9000;
+  width:340px;max-width:calc(100vw - 32px);max-height:70vh;
+  background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);
+  display:none;flex-direction:column;overflow:hidden;
+  font-family:'Segoe UI',Arial,sans-serif;
+  border:1px solid #eee;
+}
+.pib-panel.open{display:flex}
+.pib-panel-head{
+  padding:14px 16px;background:linear-gradient(135deg,#2E1A5E,#4A2A7A);color:#fff;flex-shrink:0;
+}
+.pib-panel-title{font-size:13px;font-weight:800}
+.pib-panel-sub{font-size:10.5px;opacity:.75;margin-top:2px}
+.pib-panel-close{position:absolute;top:12px;right:14px;background:none;border:none;color:#fff;font-size:15px;cursor:pointer;opacity:.8}
+.pib-panel-body{padding:12px 14px;overflow-y:auto;flex:1;font-size:12px;color:#333}
+.pib-draft-btn{
+  width:100%;padding:9px;border-radius:9px;border:1.5px solid #D9C6FA;background:#F4EEFF;
+  color:#7A4FD1;font-size:11.5px;font-weight:800;cursor:pointer;margin-bottom:10px;
+}
+.pib-draft-btn:disabled{opacity:.5;cursor:not-allowed}
+.pib-msg{margin-bottom:10px;line-height:1.55}
+.pib-msg-role{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;color:#999}
+.pib-msg.pib-ai .pib-msg-role{color:#7A4FD1}
+.pib-panel-foot{padding:10px 12px;border-top:1px solid #eee;flex-shrink:0;display:flex;gap:6px}
+.pib-panel-input{
+  flex:1;padding:8px 10px;border-radius:8px;border:1.5px solid #e5e5e5;font-size:12px;
+  font-family:inherit;resize:none;
+}
+.pib-panel-send{
+  padding:0 12px;border-radius:8px;border:none;background:#7A4FD1;color:#fff;font-size:12px;
+  font-weight:800;cursor:pointer;
+}
+.pib-cfg-note{font-size:11px;color:#999;line-height:1.6;padding:6px 0}
+.pib-cfg-input{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid #e5e5e5;font-size:11.5px;margin:6px 0;font-family:monospace}
+.pib-drafted{background:#F4EEFF!important;border-left:3px solid #7A4FD1!important}
+.pib-loading{color:#7A4FD1;font-size:11.5px;font-weight:700}
+</style>
+<button class="pib-coach-btn" id="pib-coach-toggle" title="Ask PI Buddy">🤖</button>
+<div class="pib-panel" id="pib-panel">
+  <div class="pib-panel-head" style="position:relative">
+    <button class="pib-panel-close" id="pib-panel-close">✕</button>
+    <div class="pib-panel-title">🤖 PI Buddy Coach</div>
+    <div class="pib-panel-sub" id="pib-panel-sub"></div>
+  </div>
+  <div class="pib-panel-body" id="pib-panel-body"></div>
+  <div class="pib-panel-foot" id="pib-panel-foot" style="display:none;flex-direction:column;gap:6px">
+    <label style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:#888;cursor:pointer">
+      <input type="checkbox" id="pib-search-toggle" style="width:12px;height:12px">🌐 Allow web search for this question
+    </label>
+    <div style="display:flex;gap:6px">
+      <textarea class="pib-panel-input" id="pib-panel-input" rows="1" placeholder="Ask about this tool…"></textarea>
+      <button class="pib-panel-send" id="pib-panel-send">↑</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var AI_URL_KEY='pibuddy_ai_url', AI_SECRET_KEY='pibuddy_ai_secret';
+  var qp=new URLSearchParams(location.search);
+  // URL params can hand off config across file:// origins where localStorage isn't shared
+  if(qp.get('aiurl')) localStorage.setItem(AI_URL_KEY,qp.get('aiurl'));
+  if(qp.get('aisecret')) localStorage.setItem(AI_SECRET_KEY,qp.get('aisecret'));
+
+  function getCfg(){
+    return { url: localStorage.getItem(AI_URL_KEY)||'', secret: localStorage.getItem(AI_SECRET_KEY)||'' };
+  }
+  async function askAI(system,userText,allowSearch){
+    var cfg=getCfg();
+    if(!cfg.url) throw new Error('NO_CONFIG');
+    var headers={'Content-Type':'application/json'};
+    if(cfg.secret) headers['X-LearnBuddy-Secret']=cfg.secret;
+    var res=await fetch(cfg.url,{method:'POST',headers:headers,body:JSON.stringify({system:system,messages:[{role:'user',content:userText}],allowSearch:!!allowSearch})});
+    if(!res.ok) throw new Error('HTTP_'+res.status);
+    var data=await res.json();
+    var textBlocks=(data.content||[]).filter(function(b){return b.type==='text';});
+    if(!textBlocks.length) throw new Error('NO_TEXT');
+    var combined=textBlocks.map(function(b){return b.text;}).join('\n\n');
+    var sources={};
+    textBlocks.forEach(function(b){(b.citations||[]).forEach(function(c){ if(c.url) sources[c.url]=true; });});
+    var srcList=Object.keys(sources);
+    return srcList.length ? combined+'\n\nSources: '+srcList.join(', ') : combined;
+  }
+
+  var toolName=qp.get('tool')||document.title||'this tool';
+  var purpose=qp.get('purpose')||'';
+  var probTitle=qp.get('title')||'';
+  var probDept=qp.get('dept')||'';
+  var probDesc=qp.get('desc')||'';
+  var probFreq=qp.get('freq')||'';
+  var probImpact=qp.get('impact')||'';
+  var probArea=qp.get('area')||'';
+
+  function contextSummary(){
+    var bits=[];
+    if(probTitle) bits.push(probTitle);
+    if(probDept) bits.push(probDept);
+    return bits.length ? bits.join(' · ') : 'General use — no specific problem loaded';
+  }
+  function contextBlock(){
+    var lines=[];
+    if(probTitle) lines.push('Problem: '+probTitle);
+    if(probDept) lines.push('Department: '+probDept);
+    if(probDesc) lines.push('Description: '+probDesc);
+    if(probFreq) lines.push('Frequency: '+probFreq);
+    if(probImpact) lines.push('Impact: '+probImpact);
+    if(probArea) lines.push('Area/lines affected: '+probArea);
+    return lines.join('\n');
+  }
+  function baseSystem(){
+    return 'You are PI Buddy, a practical process-improvement coach for a South African automotive OEM manufacturing environment. The person has this tool open: "'+toolName+'". Purpose: '+purpose+'. '+(contextBlock()?('Known problem context:\n'+contextBlock()+'\n\n'):'')+'Answer directly and practically, 2-4 sentences unless asked for more. No markdown.';
+  }
+
+  var panel=document.getElementById('pib-panel');
+  var body=document.getElementById('pib-panel-body');
+  var foot=document.getElementById('pib-panel-foot');
+  var sub=document.getElementById('pib-panel-sub');
+  var opened=false;
+
+  function addMsg(role,text){
+    var d=document.createElement('div');
+    d.className='pib-msg'+(role==='PI Buddy'?' pib-ai':'');
+    d.innerHTML='<div class="pib-msg-role">'+role+'</div><div>'+text+'</div>';
+    body.appendChild(d);
+    body.scrollTop=body.scrollHeight;
+  }
+
+  function renderInitial(){
+    sub.textContent=contextSummary();
+    body.innerHTML='';
+    var cfg=getCfg();
+    if(!cfg.url){
+      body.innerHTML='<div class="pib-cfg-note">No AI proxy configured yet. Paste the same proxy URL you set up in PI Buddy (⚙️), or open PI Buddy and configure it there first — this page will pick it up automatically next time you arrive via a PI Buddy link.</div>'+
+        '<input class="pib-cfg-input" id="pib-cfg-url" placeholder="https://your-proxy.vercel.app/api/buddy">'+
+        '<input class="pib-cfg-input" id="pib-cfg-secret" placeholder="Secret (optional)">'+
+        '<button class="pib-draft-btn" id="pib-cfg-save">Save & continue</button>';
+      document.getElementById('pib-cfg-save').onclick=function(){
+        var u=document.getElementById('pib-cfg-url').value.trim();
+        var s=document.getElementById('pib-cfg-secret').value.trim();
+        if(!u) return;
+        localStorage.setItem(AI_URL_KEY,u);
+        localStorage.setItem(AI_SECRET_KEY,s);
+        renderInitial();
+      };
+      foot.style.display='none';
+      return;
+    }
+    foot.style.display='flex';
+    body.innerHTML='<button class="pib-draft-btn" id="pib-draft-btn">✏️ Draft first-pass answers for me</button>';
+    document.getElementById('pib-draft-btn').onclick=runDraft;
+    addMsg('PI Buddy','Hi — I can answer questions about how to use '+toolName+', or draft first-pass answers for the fields on this page based on the problem you came in with. What would help?');
+  }
+
+  async function runDraft(){
+    var btn=document.getElementById('pib-draft-btn');
+    if(btn){ btn.disabled=true; btn.textContent='Thinking…'; }
+    var labelEls=Array.prototype.slice.call(document.querySelectorAll('.ml,.meta-label,.fl,.field-label'));
+    var targets=[];
+    labelEls.forEach(function(el){
+      var t=el.nextElementSibling;
+      if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA')&&!t.value){
+        var label=(el.textContent||'').trim();
+        if(label) targets.push({label:label, el:t});
+      }
+    });
+    if(!targets.length){ addMsg('PI Buddy','All the fields I can see already have content — nothing to draft.'); if(btn) btn.remove(); return; }
+    var labelList=targets.map(function(t,i){return (i+1)+'. '+t.label;}).join('\n');
+    var sys=baseSystem()+'\n\nDraft concise first-pass answers for these fields (one per line, matched by number, no field left blank — write your best inference even if you have to make a reasonable assumption from the context). Field list:\n'+labelList+'\n\nRespond with ONLY a JSON array of strings, in the same order as the numbered list, nothing else.';
+    try{
+      var text=await askAI(sys,'Draft the answers now.');
+      var m=text.match(/\[[\s\S]*\]/);
+      if(!m) throw new Error('NO_JSON');
+      var arr=JSON.parse(m[0]);
+      var filled=0;
+      targets.forEach(function(t,i){
+        if(arr[i]){ t.el.value=arr[i]; t.el.classList.add('pib-drafted'); filled++; }
+      });
+      addMsg('PI Buddy','Drafted '+filled+' field'+(filled===1?'':'s')+' — highlighted in purple. Review and adjust before you rely on them; I filled in my best inference where the context was thin.');
+      if(btn) btn.remove();
+    }catch(err){
+      addMsg('PI Buddy','Could not draft answers right now ('+(err.message||'error')+'). You can still ask me questions below.');
+      if(btn){ btn.disabled=false; btn.textContent='✏️ Draft first-pass answers for me'; }
+    }
+  }
+
+  async function sendChat(){
+    var input=document.getElementById('pib-panel-input');
+    var q=input.value.trim();
+    if(!q) return;
+    var allowSearch=document.getElementById('pib-search-toggle').checked;
+    input.value='';
+    addMsg('You',q);
+    addMsg('PI Buddy','<span class="pib-loading">…thinking</span>');
+    try{
+      var text=await askAI(baseSystem(),q,allowSearch);
+      body.lastChild.querySelector('div:nth-child(2)').textContent=text;
+    }catch(err){
+      var msg=err.message==='NO_CONFIG'?'AI proxy not configured.':'Could not reach the AI proxy.';
+      body.lastChild.querySelector('div:nth-child(2)').textContent=msg;
+    }
+    body.scrollTop=body.scrollHeight;
+  }
+
+  document.getElementById('pib-coach-toggle').addEventListener('click',function(){
+    opened=!opened;
+    panel.classList.toggle('open',opened);
+    if(opened && !body.hasChildNodes()) renderInitial();
+  });
+  document.getElementById('pib-panel-close').addEventListener('click',function(){
+    opened=false; panel.classList.remove('open');
+  });
+  document.getElementById('pib-panel-send').addEventListener('click',sendChat);
+  document.getElementById('pib-panel-input').addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendChat(); }
+  });
+})();
+</script>
+</body></html>

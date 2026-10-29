@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Change Management Process</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:13px;color:#1a1a1a;background:#f5f5f3}
+.page{max-width:1040px;margin:0 auto;padding:20px}
+.hdr{padding:20px 24px;margin-bottom:16px;border-radius:10px;background:linear-gradient(135deg,#4A1B0C,#993C1D);color:#fff}
+.hdr h1{font-size:21px;font-weight:700;margin-bottom:4px}
+.hdr p{font-size:11.5px;opacity:.85;line-height:1.5}
+.mg{display:grid;gap:8px;margin-bottom:12px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}
+.ml{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.mi{background:#fff;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:13px;width:100%;font-family:Arial}
+.mi:focus{outline:none;border-color:#993C1D}
+.sec{background:#fff;border-radius:10px;border:1px solid #e5e5e5;margin-bottom:12px;overflow:hidden}
+.sh{padding:10px 15px;font-size:12px;font-weight:700;color:#fff;print-color-adjust:exact}
+.sg{padding:7px 15px;font-size:11px;color:#666;border-bottom:1px solid #eee;font-style:italic;line-height:1.5;background:#fafaf8}
+.sb{padding:12px 15px}
+.fl{font-size:10.5px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px}
+.fw{margin-bottom:9px}
+textarea{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:12px;font-family:Arial;resize:vertical;min-height:44px;line-height:1.5}
+textarea:focus,select:focus,input:focus{outline:none;border-color:#993C1D}
+select,input[type=text],input[type=date],input[type=number]{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:7px 10px;font-size:12px;font-family:Arial;background:#fff}
+.tw{overflow-x:auto;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{padding:8px 10px;font-size:10px;font-weight:700;text-align:left;color:#fff;white-space:nowrap;print-color-adjust:exact}
+td{padding:7px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+td input,td select,td textarea{width:100%}
+.btn{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:700}
+.bp{background:#993C1D;color:#fff}.bo{background:#fff;color:#993C1D;border:2px solid #993C1D}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.tip{background:#FFF3D6;border-left:4px solid #BA7517;padding:9px 13px;border-radius:0 6px 6px 0;font-size:11px;color:#633806;margin:8px 0;line-height:1.55}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:12px}
+.card{border-radius:8px;padding:10px;text-align:center;border:1px solid #eee}
+.cn{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+
+/* Kübler-Ross curve SVG container */
+.curve-wrap{background:#fff;border-radius:10px;border:1px solid #e5e5e5;padding:16px;margin-bottom:12px}
+.curve-title{font-size:13px;font-weight:700;color:#4A1B0C;margin-bottom:12px}
+
+/* Stage cards */
+.stages{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:12px}
+.stage{border-radius:8px;padding:10px 8px;text-align:center;border:2px solid transparent;cursor:pointer;transition:all .15s}
+.stage:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.stage.active{border-color:#1F3864;box-shadow:0 0 0 2px #2E75B6}
+.stage-num{font-size:18px;font-weight:700;margin-bottom:3px}
+.stage-name{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+
+/* Stage colours */
+.s1{background:#2C3E60;color:#fff} /* Shock — navy */
+.s2{background:#2C6E8A;color:#fff} /* Denial — teal-blue */
+.s3{background:#BA7517;color:#fff} /* Frustration — amber */
+.s4{background:#2D6A30;color:#fff} /* Depression — green */
+.s5{background:#1E90C4;color:#fff} /* Experiment — cyan */
+.s6{background:#C45F20;color:#fff} /* Decision — orange */
+.s7{background:#2E5E2E;color:#fff} /* Integration — dark green */
+
+.stage-detail{display:none}
+.stage-detail.visible{display:block}
+
+@media print{body{background:#fff}.acts{display:none}textarea,input,select{border:1px solid #ccc!important}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <h1>&#9654; Change Management Process — Kübler-Ross Change Curve</h1>
+  <p>Guide individuals and teams through the emotional journey of change — from initial Shock to full Integration — with the right manager actions and tools at every stage.</p>
+</div>
+
+<!-- Project header -->
+<div class="mg g4">
+  <div><div class="ml">Change / Initiative</div><input type="text" class="mi" placeholder="e.g. MPS System Rollout"></div>
+  <div><div class="ml">Change Leader</div><input type="text" class="mi" placeholder="Name"></div>
+  <div><div class="ml">Start Date</div><input type="date" class="mi"></div>
+  <div><div class="ml">Target Integration Date</div><input type="date" class="mi"></div>
+</div>
+<div class="mg g4">
+  <div><div class="ml">Sponsor</div><input type="text" class="mi" placeholder="Executive sponsor"></div>
+  <div><div class="ml">Departments Affected</div><input type="text" class="mi" placeholder="e.g. Production, HR, IT"></div>
+  <div><div class="ml"># People Affected</div><input type="number" class="mi" placeholder="0"></div>
+  <div><div class="ml">Current Stage (team avg)</div>
+    <select class="mi">
+      <option>1 — Shock</option><option>2 — Denial</option><option>3 — Frustration</option>
+      <option>4 — Depression</option><option>5 — Experiment</option><option>6 — Decision</option><option>7 — Integration</option>
+    </select>
+  </div>
+</div>
+
+<!-- Visual Kübler-Ross curve SVG -->
+<div class="curve-wrap">
+  <div class="curve-title">Kübler-Ross Change Curve — Morale & Performance Over Time</div>
+  <svg viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:220px">
+    <!-- Axes -->
+    <line x1="50" y1="20" x2="50" y2="195" stroke="#bbb" stroke-width="1.5"/>
+    <line x1="50" y1="195" x2="780" y2="195" stroke="#bbb" stroke-width="1.5"/>
+    <!-- Axis labels -->
+    <text x="14" y="110" font-family="Arial" font-size="10" fill="#888" transform="rotate(-90,14,110)">MORALE &amp; PERFORMANCE</text>
+    <text x="770" y="208" font-family="Arial" font-size="10" fill="#888">TIME</text>
+    <!-- The curve path — U-shape with recovery -->
+    <path d="M 65 55 C 100 55 120 80 150 100 C 180 120 200 145 230 165 C 260 185 295 190 330 188 C 365 186 390 178 420 160 C 450 142 470 125 500 110 C 530 95 560 80 600 65 C 640 50 680 40 720 35"
+          fill="none" stroke="#1F3864" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Stage dots with labels -->
+    <!-- 1. Shock -->
+    <circle cx="90" cy="58" r="9" fill="#2C3E60"/>
+    <text x="90" y="48" font-family="Arial" font-size="9" font-weight="bold" fill="#2C3E60" text-anchor="middle">1. Shock</text>
+    <!-- 2. Denial -->
+    <circle cx="160" cy="100" r="9" fill="#2C6E8A"/>
+    <text x="185" y="95" font-family="Arial" font-size="9" font-weight="bold" fill="#2C6E8A">2. Denial</text>
+    <!-- 3. Frustration -->
+    <circle cx="230" cy="162" r="9" fill="#BA7517"/>
+    <text x="195" y="178" font-family="Arial" font-size="9" font-weight="bold" fill="#BA7517">3. Frustration</text>
+    <!-- 4. Depression -->
+    <circle cx="330" cy="188" r="9" fill="#2D6A30"/>
+    <text x="330" y="210" font-family="Arial" font-size="9" font-weight="bold" fill="#2D6A30" text-anchor="middle">4. Depression</text>
+    <!-- 5. Experiment -->
+    <circle cx="430" cy="158" r="9" fill="#1E90C4"/>
+    <text x="455" y="165" font-family="Arial" font-size="9" font-weight="bold" fill="#1E90C4">5. Experiment</text>
+    <!-- 6. Decision -->
+    <circle cx="530" cy="108" r="9" fill="#C45F20"/>
+    <text x="555" y="113" font-family="Arial" font-size="9" font-weight="bold" fill="#C45F20">6. Decision</text>
+    <!-- 7. Integration -->
+    <circle cx="680" cy="42" r="9" fill="#2E5E2E"/>
+    <text x="645" y="35" font-family="Arial" font-size="9" font-weight="bold" fill="#2E5E2E">7. Integration</text>
+    <!-- Arrows -->
+    <defs>
+      <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L6,3 z" fill="#1F3864"/>
+      </marker>
+    </defs>
+    <line x1="720" y1="35" x2="778" y2="35" stroke="#1F3864" stroke-width="1.5" marker-end="url(#arr)"/>
+    <line x1="50" y1="22" x2="50" y2="18" stroke="#1F3864" stroke-width="1.5" marker-end="url(#arr)"/>
+  </svg>
+</div>
+
+<!-- Stage selector tabs -->
+<div class="sec">
+  <div class="sh" style="background:#4A1B0C">Select a stage to record your actions and status</div>
+  <div class="sb">
+    <div class="stages" id="stage-tabs">
+      <div class="stage s1 active" onclick="showStage(1)" title="Stage 1"><div class="stage-num">1</div><div class="stage-name">Shock</div></div>
+      <div class="stage s2" onclick="showStage(2)" title="Stage 2"><div class="stage-num">2</div><div class="stage-name">Denial</div></div>
+      <div class="stage s3" onclick="showStage(3)" title="Stage 3"><div class="stage-num">3</div><div class="stage-name">Frustration</div></div>
+      <div class="stage s4" onclick="showStage(4)" title="Stage 4"><div class="stage-num">4</div><div class="stage-name">Depression</div></div>
+      <div class="stage s5" onclick="showStage(5)" title="Stage 5"><div class="stage-num">5</div><div class="stage-name">Experiment</div></div>
+      <div class="stage s6" onclick="showStage(6)" title="Stage 6"><div class="stage-num">6</div><div class="stage-name">Decision</div></div>
+      <div class="stage s7" onclick="showStage(7)" title="Stage 7"><div class="stage-num">7</div><div class="stage-name">Integration</div></div>
+    </div>
+
+    <!-- Stage 1 — Shock -->
+    <div id="stage-1" class="stage-detail visible">
+      <div class="tip"><b>Stage 1 — Shock:</b> People are surprised or stunned. Performance drops immediately. Manager action: Clear communication — explain what is happening and why, quickly and honestly.</div>
+      <div class="mg g3">
+        <div><div class="fl">Manager Action</div><textarea rows="2" placeholder="Communicate clearly. Explain what is changing and why. Be visible and available."></textarea></div>
+        <div><div class="fl">Team Sentiment (1–10)</div><input type="number" min="1" max="10" placeholder="1=very negative, 10=positive"></div>
+        <div><div class="fl">Status</div><select><option>Not started</option><option>In progress</option><option>Complete</option></select></div>
+      </div>
+      <div class="fl" style="margin-bottom:6px">Tools &amp; Actions to Deploy at Stage 1</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#2C3E60">Tool / Template</th><th style="background:#2C3E60">What it does</th><th style="background:#2C3E60">Owner</th><th style="background:#2C3E60">Due Date</th><th style="background:#2C3E60">Done?</th></tr></thead>
+        <tbody>
+          <tr><td>Change announcement brief</td><td>Clear first word on what's changing and why</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Stakeholder / RACI map</td><td>Sets who's responsible, accountable, consulted, informed</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Town-hall deck &amp; FAQ</td><td>Live briefing that answers the top questions openly</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <div class="fw" style="margin-top:10px"><div class="fl">Stage 1 Notes &amp; Observations</div><textarea rows="2" placeholder="What reactions did you observe? What questions came up?"></textarea></div>
+    </div>
+
+    <!-- Stage 2 — Denial -->
+    <div id="stage-2" class="stage-detail">
+      <div class="tip"><b>Stage 2 — Denial:</b> People convince themselves the change won't really happen or won't affect them. Manager action: Provide information. Address questions and concerns with facts and patience.</div>
+      <div class="mg g3">
+        <div><div class="fl">Manager Action</div><textarea rows="2" placeholder="Provide information. Address questions and concerns patiently."></textarea></div>
+        <div><div class="fl">Team Sentiment (1–10)</div><input type="number" min="1" max="10"></div>
+        <div><div class="fl">Status</div><select><option>Not started</option><option>In progress</option><option>Complete</option></select></div>
+      </div>
+      <div class="fl" style="margin-bottom:6px">Tools &amp; Actions to Deploy at Stage 2</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#2C6E8A">Tool / Template</th><th style="background:#2C6E8A">What it does</th><th style="background:#2C6E8A">Owner</th><th style="background:#2C6E8A">Due Date</th><th style="background:#2C6E8A">Done?</th></tr></thead>
+        <tbody>
+          <tr><td>Change impact assessment</td><td>Shows how each role and process will change</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>FAQ knowledge base</td><td>Searchable answers that counter denial</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Communication cadence calendar</td><td>Schedules who hears what, and when</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <div class="fw" style="margin-top:10px"><div class="fl">Stage 2 Notes</div><textarea rows="2" placeholder="What denial patterns are you observing? Which teams are most resistant?"></textarea></div>
+    </div>
+
+    <!-- Stage 3 — Frustration -->
+    <div id="stage-3" class="stage-detail">
+      <div class="tip"><b>Stage 3 — Frustration:</b> Morale dips further. People are actively irritated or resistant. Manager action: Active listening. Acknowledge feelings and frustrations — do not dismiss them.</div>
+      <div class="mg g3">
+        <div><div class="fl">Manager Action</div><textarea rows="2" placeholder="Active listening. Acknowledge feelings. Hold 1:1 check-ins."></textarea></div>
+        <div><div class="fl">Team Sentiment (1–10)</div><input type="number" min="1" max="10"></div>
+        <div><div class="fl">Status</div><select><option>Not started</option><option>In progress</option><option>Complete</option></select></div>
+      </div>
+      <div class="fl" style="margin-bottom:6px">Tools &amp; Actions to Deploy at Stage 3</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#BA7517">Tool / Template</th><th style="background:#BA7517">What it does</th><th style="background:#BA7517">Owner</th><th style="background:#BA7517">Due Date</th><th style="background:#BA7517">Done?</th></tr></thead>
+        <tbody>
+          <tr><td>Pulse / sentiment survey</td><td>Measures where resistance is building</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>1:1 listening-session guide</td><td>A structured, empathetic check-in</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Resistance management plan</td><td>Logs objections and how to address them</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <div class="fl" style="margin:10px 0 6px">Resistance Log — Objections &amp; Responses</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#BA7517">Objection / Concern Raised</th><th style="background:#BA7517">Team / Person</th><th style="background:#BA7517">Response / Action</th><th style="background:#BA7517">Owner</th><th style="background:#BA7517">Resolved?</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="Describe the objection"></td><td><input type="text"></td><td><input type="text" placeholder="How will you address this?"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Yes</option><option>Partially</option><option>No</option></select></td></tr>
+          <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Yes</option><option>Partially</option><option>No</option></select></td></tr>
+          <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Yes</option><option>Partially</option><option>No</option></select></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- Stage 4 — Depression -->
+    <div id="stage-4" class="stage-detail">
+      <div class="tip"><b>Stage 4 — Depression:</b> The bottom of the curve. People are overwhelmed, disengaged, or low-energy. Manager action: Offer genuine support. Be empathetic and patient. Never rush people through this stage.</div>
+      <div class="mg g3">
+        <div><div class="fl">Manager Action</div><textarea rows="2" placeholder="Offer support. Be empathetic and patient. Connect people with EAP if needed."></textarea></div>
+        <div><div class="fl">Team Sentiment (1–10)</div><input type="number" min="1" max="10"></div>
+        <div><div class="fl">Status</div><select><option>Not started</option><option>In progress</option><option>Complete</option></select></div>
+      </div>
+      <div class="fl" style="margin-bottom:6px">Tools &amp; Actions to Deploy at Stage 4</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#2D6A30">Tool / Template</th><th style="background:#2D6A30">What it does</th><th style="background:#2D6A30">Owner</th><th style="background:#2D6A30">Due Date</th><th style="background:#2D6A30">Done?</th></tr></thead>
+        <tbody>
+          <tr><td>EAP &amp; wellbeing check-ins</td><td>Routes struggling staff to real support</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>ADKAR individual assessment</td><td>Pinpoints where each person is stuck</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Quick-win task lists</td><td>Small, visible wins that rebuild momentum</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <div class="fl" style="margin:10px 0 6px">ADKAR Assessment — Where is each team member stuck?</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#2D6A30">Team Member</th><th style="background:#2D6A30">A — Awareness</th><th style="background:#2D6A30">D — Desire</th><th style="background:#2D6A30">K — Knowledge</th><th style="background:#2D6A30">A — Ability</th><th style="background:#2D6A30">R — Reinforcement</th><th style="background:#2D6A30">Stuck at</th></tr></thead>
+        <tbody>
+          <tr><td><input type="text" placeholder="Name"></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><input type="text" placeholder="e.g. Desire"></td></tr>
+          <tr><td><input type="text"></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><input type="text"></td></tr>
+          <tr><td><input type="text"></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><input type="text"></td></tr>
+          <tr><td><input type="text"></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><input type="text"></td></tr>
+          <tr><td><input type="text"></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><select><option>—</option><option>✓ OK</option><option>⚠ Gap</option></select></td><td><input type="text"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- Stage 5 — Experiment -->
+    <div id="stage-5" class="stage-detail">
+      <div class="tip"><b>Stage 5 — Experiment:</b> Energy begins to return. People start testing and exploring the new way. Manager action: Encourage testing. Support small steps and celebrate learning — even from failure.</div>
+      <div class="mg g3">
+        <div><div class="fl">Manager Action</div><textarea rows="2" placeholder="Encourage testing. Support small steps and learning. Create safe-to-fail pilots."></textarea></div>
+        <div><div class="fl">Team Sentiment (1–10)</div><input type="number" min="1" max="10"></div>
+        <div><div class="fl">Status</div><select><option>Not started</option><option>In progress</option><option>Complete</option></select></div>
+      </div>
+      <div class="fl" style="margin-bottom:6px">Tools &amp; Actions to Deploy at Stage 5</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#1E90C4">Tool / Template</th><th style="background:#1E90C4">What it does</th><th style="background:#1E90C4">Owner</th><th style="background:#1E90C4">Due Date</th><th style="background:#1E90C4">Done?</th></tr></thead>
+        <tbody>
+          <tr><td>Training plan &amp; job aids</td><td>Builds the new skills and how-to's</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Pilot / sprint plan</td><td>A safe space to test new ways of working</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Skills matrix</td><td>Tracks who can do what, and the gaps</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <div class="fw" style="margin-top:10px"><div class="fl">Pilot Results &amp; Learning</div><textarea rows="3" placeholder="What did you test? What worked? What needs to change before full rollout?"></textarea></div>
+    </div>
+
+    <!-- Stage 6 — Decision -->
+    <div id="stage-6" class="stage-detail">
+      <div class="tip"><b>Stage 6 — Decision:</b> People consciously choose to adopt the change. Manager action: Provide coaching. Help build confidence and commitment. Recognise and reward early adopters visibly.</div>
+      <div class="mg g3">
+        <div><div class="fl">Manager Action</div><textarea rows="2" placeholder="Provide coaching. Help build confidence and commitment. Recognise early adopters."></textarea></div>
+        <div><div class="fl">Team Sentiment (1–10)</div><input type="number" min="1" max="10"></div>
+        <div><div class="fl">Status</div><select><option>Not started</option><option>In progress</option><option>Complete</option></select></div>
+      </div>
+      <div class="fl" style="margin-bottom:6px">Tools &amp; Actions to Deploy at Stage 6</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#C45F20">Tool / Template</th><th style="background:#C45F20">What it does</th><th style="background:#C45F20">Owner</th><th style="background:#C45F20">Due Date</th><th style="background:#C45F20">Done?</th></tr></thead>
+        <tbody>
+          <tr><td>Goal template</td><td>Locks in new behaviours and targets</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Recognition &amp; reinforcement plan</td><td>Rewards and embeds early adoption</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Performance dashboard</td><td>Shows progress to build confidence</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <div class="fw" style="margin-top:10px"><div class="fl">Recognition Given This Period</div><textarea rows="2" placeholder="Who was recognised? For what behaviour? How was it communicated to the team?"></textarea></div>
+    </div>
+
+    <!-- Stage 7 — Integration -->
+    <div id="stage-7" class="stage-detail">
+      <div class="tip"><b>Stage 7 — Integration:</b> The change is embedded. It is now the new normal. Manager action: Celebrate wins. Reinforce success and make the new way standard practice. Capture lessons for the next change.</div>
+      <div class="mg g3">
+        <div><div class="fl">Manager Action</div><textarea rows="2" placeholder="Celebrate wins. Reinforce success and embed the change into standards."></textarea></div>
+        <div><div class="fl">Team Sentiment (1–10)</div><input type="number" min="1" max="10"></div>
+        <div><div class="fl">Status</div><select><option>Not started</option><option>In progress</option><option>Complete</option></select></div>
+      </div>
+      <div class="fl" style="margin-bottom:6px">Tools &amp; Actions to Deploy at Stage 7</div>
+      <div class="tw"><table>
+        <thead><tr><th style="background:#2E5E2E">Tool / Template</th><th style="background:#2E5E2E">What it does</th><th style="background:#2E5E2E">Owner</th><th style="background:#2E5E2E">Due Date</th><th style="background:#2E5E2E">Done?</th></tr></thead>
+        <tbody>
+          <tr><td>Benefits realisation scorecard</td><td>Proves the change delivered value</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Lessons-learned retrospective</td><td>Captures what to repeat next time</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+          <tr><td>Updated SOPs &amp; onboarding</td><td>Makes the new way standard practice</td><td><input type="text"></td><td><input type="date"></td><td><select><option>—</option><option>✓ Done</option><option>In progress</option><option>Not started</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <div class="mg g2" style="margin-top:10px">
+        <div><div class="fl">Benefits Achieved vs Planned</div><textarea rows="3" placeholder="What outcomes were realised? Quantify where possible."></textarea></div>
+        <div><div class="fl">Lessons for Next Change Initiative</div><textarea rows="3" placeholder="What would you do differently? What should be repeated?"></textarea></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Progress overview -->
+<div class="sec">
+  <div class="sh" style="background:#712B13">Change Progress Tracker — All Stages</div>
+  <div class="sg">Rate the team's overall progress through each stage on a scale of 0 (not started) to 10 (fully integrated)</div>
+  <div class="sb">
+    <div class="tw"><table>
+      <thead><tr>
+        <th style="background:#712B13">Stage</th>
+        <th style="background:#712B13">Target Date</th>
+        <th style="background:#712B13">Actual Date</th>
+        <th style="background:#712B13">Team Readiness (0–10)</th>
+        <th style="background:#712B13">Key Blocker</th>
+        <th style="background:#712B13">Manager Action Taken</th>
+        <th style="background:#712B13">Status</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="font-weight:700;color:#2C3E60">1 — Shock</td><td><input type="date"></td><td><input type="date"></td><td><input type="number" min="0" max="10"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Complete</option><option>In progress</option><option>Not started</option></select></td></tr>
+        <tr><td style="font-weight:700;color:#2C6E8A">2 — Denial</td><td><input type="date"></td><td><input type="date"></td><td><input type="number" min="0" max="10"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Complete</option><option>In progress</option><option>Not started</option></select></td></tr>
+        <tr><td style="font-weight:700;color:#BA7517">3 — Frustration</td><td><input type="date"></td><td><input type="date"></td><td><input type="number" min="0" max="10"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Complete</option><option>In progress</option><option>Not started</option></select></td></tr>
+        <tr><td style="font-weight:700;color:#2D6A30">4 — Depression</td><td><input type="date"></td><td><input type="date"></td><td><input type="number" min="0" max="10"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Complete</option><option>In progress</option><option>Not started</option></select></td></tr>
+        <tr><td style="font-weight:700;color:#1E90C4">5 — Experiment</td><td><input type="date"></td><td><input type="date"></td><td><input type="number" min="0" max="10"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Complete</option><option>In progress</option><option>Not started</option></select></td></tr>
+        <tr><td style="font-weight:700;color:#C45F20">6 — Decision</td><td><input type="date"></td><td><input type="date"></td><td><input type="number" min="0" max="10"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Complete</option><option>In progress</option><option>Not started</option></select></td></tr>
+        <tr><td style="font-weight:700;color:#2E5E2E">7 — Integration</td><td><input type="date"></td><td><input type="date"></td><td><input type="number" min="0" max="10"></td><td><input type="text"></td><td><input type="text"></td><td><select><option>—</option><option>✓ Complete</option><option>In progress</option><option>Not started</option></select></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- Leader self-assessment -->
+<div class="sec">
+  <div class="sh" style="background:#4A1B0C">Leader Self-Assessment — Am I Following the Change Curve?</div>
+  <div class="sg">Honest self-reflection against the behaviours that distinguish effective change leaders from those who erode trust</div>
+  <div class="sb">
+    <div class="tw"><table>
+      <thead><tr>
+        <th style="background:#4A1B0C">Behaviour</th>
+        <th style="background:#4A1B0C">I do this (✓ / ✗ / Sometimes)</th>
+        <th style="background:#4A1B0C">What I will do differently</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>I acknowledge emotions openly — I don't minimise concerns</td><td><select><option>—</option><option>✓ Consistently</option><option>Sometimes</option><option>✗ Need to improve</option></select></td><td><input type="text"></td></tr>
+        <tr><td>I communicate transparently — even when the message is uncomfortable</td><td><select><option>—</option><option>✓ Consistently</option><option>Sometimes</option><option>✗ Need to improve</option></select></td><td><input type="text"></td></tr>
+        <tr><td>I listen more than I speak during change conversations</td><td><select><option>—</option><option>✓ Consistently</option><option>Sometimes</option><option>✗ Need to improve</option></select></td><td><input type="text"></td></tr>
+        <tr><td>I involve the team in how the change is implemented — not just what</td><td><select><option>—</option><option>✓ Consistently</option><option>Sometimes</option><option>✗ Need to improve</option></select></td><td><input type="text"></td></tr>
+        <tr><td>I provide real support and resources — not just words</td><td><select><option>—</option><option>✓ Consistently</option><option>Sometimes</option><option>✗ Need to improve</option></select></td><td><input type="text"></td></tr>
+        <tr><td>I have avoided pushing for compliance before understanding is built</td><td><select><option>—</option><option>✓ Consistently</option><option>Sometimes</option><option>✗ Need to improve</option></select></td><td><input type="text"></td></tr>
+        <tr><td>I avoid tough conversations rather than having them</td><td><select><option>—</option><option>✓ Consistently</option><option>Sometimes</option><option>✗ Need to improve</option></select></td><td><input type="text"></td></tr>
+      </tbody>
+    </table></div>
+    <div class="fw" style="margin-top:10px"><div class="fl">My Biggest Leadership Development Area in This Change</div><textarea rows="2"></textarea></div>
+  </div>
+</div>
+
+<div class="acts">
+  <button class="btn bp" onclick="window.print()">🖨 Print / PDF</button>
+  <button class="btn bo" onclick="if(confirm('Clear all data?')){document.querySelectorAll('input,textarea').forEach(e=>e.value='');document.querySelectorAll('select').forEach(e=>e.selectedIndex=0)}">↺ Clear</button>
+</div>
+</div>
+
+<script>
+function showStage(n){
+  for(let i=1;i<=7;i++){
+    document.getElementById('stage-'+i).classList.toggle('visible',i===n);
+  }
+  document.querySelectorAll('.stage').forEach((el,i)=>el.classList.toggle('active',i+1===n));
+}
+</script>
+<!-- PI Buddy autofill -->
+<script>
+(function(){
+  var qp=new URLSearchParams(location.search);
+  var keys=[]; qp.forEach(function(v,k){keys.push(k);});
+  if(!keys.length) return;
+  var has=function(k){return qp.has(k)&&qp.get(k)!=='';};
+  var claimed={};
+  function tryFill(labelEl){
+    var isMeta=labelEl.classList.contains('ml')||labelEl.classList.contains('meta-label');
+    var target=labelEl.nextElementSibling;
+    if(!target||!(target.tagName==='INPUT'||target.tagName==='TEXTAREA')) return;
+    if(target.value) return;
+    var t=(labelEl.textContent||'').toLowerCase().trim();
+    if(!claimed.title&&isMeta&&has('title')&&(t.indexOf('problem title')>=0||t==='problem'||t.indexOf('problem statement')>=0||t==='title')){
+      target.value=qp.get('title'); claimed.title=true; return;
+    }
+    if(!claimed.dept&&has('dept')&&t.indexOf('department')>=0){
+      target.value=qp.get('dept'); claimed.dept=true; return;
+    }
+    if(!claimed.area&&has('area')&&(t.indexOf('process / area')>=0||t.indexOf('product / process')>=0||t==='area'||t.indexOf('line')>=0)){
+      target.value=qp.get('area'); claimed.area=true; return;
+    }
+    if(!claimed.desc&&has('desc')&&(t.indexOf('what is')>=0||t.indexOf('specific problem')>=0||t.indexOf('problem description')>=0||t.indexOf('context')>=0)){
+      target.value=qp.get('desc'); claimed.desc=true; return;
+    }
+    if(!claimed.freq&&has('freq')&&(t.indexOf('how often')>=0||t.indexOf('frequency')>=0||t.indexOf('how many')>=0)){
+      target.value=qp.get('freq'); claimed.freq=true; return;
+    }
+    if(!claimed.impact&&has('impact')&&t.indexOf('impact')>=0){
+      target.value=qp.get('impact'); claimed.impact=true; return;
+    }
+  }
+  document.querySelectorAll('.ml,.meta-label,.fl,.field-label').forEach(tryFill);
+})();
+</script>
+<!-- PI Buddy AI Coach -->
+<style>
+.pib-coach-btn{
+  position:fixed;bottom:22px;right:22px;z-index:9000;
+  width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#7A4FD1,#4A2A7A);color:#fff;font-size:22px;
+  box-shadow:0 8px 24px rgba(74,42,122,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Segoe UI',Arial,sans-serif;
+}
+.pib-coach-btn:hover{transform:scale(1.06)}
+.pib-panel{
+  position:fixed;bottom:88px;right:22px;z-index:9000;
+  width:340px;max-width:calc(100vw - 32px);max-height:70vh;
+  background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);
+  display:none;flex-direction:column;overflow:hidden;
+  font-family:'Segoe UI',Arial,sans-serif;
+  border:1px solid #eee;
+}
+.pib-panel.open{display:flex}
+.pib-panel-head{
+  padding:14px 16px;background:linear-gradient(135deg,#2E1A5E,#4A2A7A);color:#fff;flex-shrink:0;
+}
+.pib-panel-title{font-size:13px;font-weight:800}
+.pib-panel-sub{font-size:10.5px;opacity:.75;margin-top:2px}
+.pib-panel-close{position:absolute;top:12px;right:14px;background:none;border:none;color:#fff;font-size:15px;cursor:pointer;opacity:.8}
+.pib-panel-body{padding:12px 14px;overflow-y:auto;flex:1;font-size:12px;color:#333}
+.pib-draft-btn{
+  width:100%;padding:9px;border-radius:9px;border:1.5px solid #D9C6FA;background:#F4EEFF;
+  color:#7A4FD1;font-size:11.5px;font-weight:800;cursor:pointer;margin-bottom:10px;
+}
+.pib-draft-btn:disabled{opacity:.5;cursor:not-allowed}
+.pib-msg{margin-bottom:10px;line-height:1.55}
+.pib-msg-role{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;color:#999}
+.pib-msg.pib-ai .pib-msg-role{color:#7A4FD1}
+.pib-panel-foot{padding:10px 12px;border-top:1px solid #eee;flex-shrink:0;display:flex;gap:6px}
+.pib-panel-input{
+  flex:1;padding:8px 10px;border-radius:8px;border:1.5px solid #e5e5e5;font-size:12px;
+  font-family:inherit;resize:none;
+}
+.pib-panel-send{
+  padding:0 12px;border-radius:8px;border:none;background:#7A4FD1;color:#fff;font-size:12px;
+  font-weight:800;cursor:pointer;
+}
+.pib-cfg-note{font-size:11px;color:#999;line-height:1.6;padding:6px 0}
+.pib-cfg-input{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid #e5e5e5;font-size:11.5px;margin:6px 0;font-family:monospace}
+.pib-drafted{background:#F4EEFF!important;border-left:3px solid #7A4FD1!important}
+.pib-loading{color:#7A4FD1;font-size:11.5px;font-weight:700}
+</style>
+<button class="pib-coach-btn" id="pib-coach-toggle" title="Ask PI Buddy">🤖</button>
+<div class="pib-panel" id="pib-panel">
+  <div class="pib-panel-head" style="position:relative">
+    <button class="pib-panel-close" id="pib-panel-close">✕</button>
+    <div class="pib-panel-title">🤖 PI Buddy Coach</div>
+    <div class="pib-panel-sub" id="pib-panel-sub"></div>
+  </div>
+  <div class="pib-panel-body" id="pib-panel-body"></div>
+  <div class="pib-panel-foot" id="pib-panel-foot" style="display:none;flex-direction:column;gap:6px">
+    <label style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:#888;cursor:pointer">
+      <input type="checkbox" id="pib-search-toggle" style="width:12px;height:12px">🌐 Allow web search for this question
+    </label>
+    <div style="display:flex;gap:6px">
+      <textarea class="pib-panel-input" id="pib-panel-input" rows="1" placeholder="Ask about this tool…"></textarea>
+      <button class="pib-panel-send" id="pib-panel-send">↑</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var AI_URL_KEY='pibuddy_ai_url', AI_SECRET_KEY='pibuddy_ai_secret';
+  var qp=new URLSearchParams(location.search);
+  // URL params can hand off config across file:// origins where localStorage isn't shared
+  if(qp.get('aiurl')) localStorage.setItem(AI_URL_KEY,qp.get('aiurl'));
+  if(qp.get('aisecret')) localStorage.setItem(AI_SECRET_KEY,qp.get('aisecret'));
+
+  function getCfg(){
+    return { url: localStorage.getItem(AI_URL_KEY)||'', secret: localStorage.getItem(AI_SECRET_KEY)||'' };
+  }
+  async function askAI(system,userText,allowSearch){
+    var cfg=getCfg();
+    if(!cfg.url) throw new Error('NO_CONFIG');
+    var headers={'Content-Type':'application/json'};
+    if(cfg.secret) headers['X-LearnBuddy-Secret']=cfg.secret;
+    var res=await fetch(cfg.url,{method:'POST',headers:headers,body:JSON.stringify({system:system,messages:[{role:'user',content:userText}],allowSearch:!!allowSearch})});
+    if(!res.ok) throw new Error('HTTP_'+res.status);
+    var data=await res.json();
+    var textBlocks=(data.content||[]).filter(function(b){return b.type==='text';});
+    if(!textBlocks.length) throw new Error('NO_TEXT');
+    var combined=textBlocks.map(function(b){return b.text;}).join('\n\n');
+    var sources={};
+    textBlocks.forEach(function(b){(b.citations||[]).forEach(function(c){ if(c.url) sources[c.url]=true; });});
+    var srcList=Object.keys(sources);
+    return srcList.length ? combined+'\n\nSources: '+srcList.join(', ') : combined;
+  }
+
+  var toolName=qp.get('tool')||document.title||'this tool';
+  var purpose=qp.get('purpose')||'';
+  var probTitle=qp.get('title')||'';
+  var probDept=qp.get('dept')||'';
+  var probDesc=qp.get('desc')||'';
+  var probFreq=qp.get('freq')||'';
+  var probImpact=qp.get('impact')||'';
+  var probArea=qp.get('area')||'';
+
+  function contextSummary(){
+    var bits=[];
+    if(probTitle) bits.push(probTitle);
+    if(probDept) bits.push(probDept);
+    return bits.length ? bits.join(' · ') : 'General use — no specific problem loaded';
+  }
+  function contextBlock(){
+    var lines=[];
+    if(probTitle) lines.push('Problem: '+probTitle);
+    if(probDept) lines.push('Department: '+probDept);
+    if(probDesc) lines.push('Description: '+probDesc);
+    if(probFreq) lines.push('Frequency: '+probFreq);
+    if(probImpact) lines.push('Impact: '+probImpact);
+    if(probArea) lines.push('Area/lines affected: '+probArea);
+    return lines.join('\n');
+  }
+  function baseSystem(){
+    return 'You are PI Buddy, a practical process-improvement coach for a South African automotive OEM manufacturing environment. The person has this tool open: "'+toolName+'". Purpose: '+purpose+'. '+(contextBlock()?('Known problem context:\n'+contextBlock()+'\n\n'):'')+'Answer directly and practically, 2-4 sentences unless asked for more. No markdown.';
+  }
+
+  var panel=document.getElementById('pib-panel');
+  var body=document.getElementById('pib-panel-body');
+  var foot=document.getElementById('pib-panel-foot');
+  var sub=document.getElementById('pib-panel-sub');
+  var opened=false;
+
+  function addMsg(role,text){
+    var d=document.createElement('div');
+    d.className='pib-msg'+(role==='PI Buddy'?' pib-ai':'');
+    d.innerHTML='<div class="pib-msg-role">'+role+'</div><div>'+text+'</div>';
+    body.appendChild(d);
+    body.scrollTop=body.scrollHeight;
+  }
+
+  function renderInitial(){
+    sub.textContent=contextSummary();
+    body.innerHTML='';
+    var cfg=getCfg();
+    if(!cfg.url){
+      body.innerHTML='<div class="pib-cfg-note">No AI proxy configured yet. Paste the same proxy URL you set up in PI Buddy (⚙️), or open PI Buddy and configure it there first — this page will pick it up automatically next time you arrive via a PI Buddy link.</div>'+
+        '<input class="pib-cfg-input" id="pib-cfg-url" placeholder="https://your-proxy.vercel.app/api/buddy">'+
+        '<input class="pib-cfg-input" id="pib-cfg-secret" placeholder="Secret (optional)">'+
+        '<button class="pib-draft-btn" id="pib-cfg-save">Save & continue</button>';
+      document.getElementById('pib-cfg-save').onclick=function(){
+        var u=document.getElementById('pib-cfg-url').value.trim();
+        var s=document.getElementById('pib-cfg-secret').value.trim();
+        if(!u) return;
+        localStorage.setItem(AI_URL_KEY,u);
+        localStorage.setItem(AI_SECRET_KEY,s);
+        renderInitial();
+      };
+      foot.style.display='none';
+      return;
+    }
+    foot.style.display='flex';
+    body.innerHTML='<button class="pib-draft-btn" id="pib-draft-btn">✏️ Draft first-pass answers for me</button>';
+    document.getElementById('pib-draft-btn').onclick=runDraft;
+    addMsg('PI Buddy','Hi — I can answer questions about how to use '+toolName+', or draft first-pass answers for the fields on this page based on the problem you came in with. What would help?');
+  }
+
+  async function runDraft(){
+    var btn=document.getElementById('pib-draft-btn');
+    if(btn){ btn.disabled=true; btn.textContent='Thinking…'; }
+    var labelEls=Array.prototype.slice.call(document.querySelectorAll('.ml,.meta-label,.fl,.field-label'));
+    var targets=[];
+    labelEls.forEach(function(el){
+      var t=el.nextElementSibling;
+      if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA')&&!t.value){
+        var label=(el.textContent||'').trim();
+        if(label) targets.push({label:label, el:t});
+      }
+    });
+    if(!targets.length){ addMsg('PI Buddy','All the fields I can see already have content — nothing to draft.'); if(btn) btn.remove(); return; }
+    var labelList=targets.map(function(t,i){return (i+1)+'. '+t.label;}).join('\n');
+    var sys=baseSystem()+'\n\nDraft concise first-pass answers for these fields (one per line, matched by number, no field left blank — write your best inference even if you have to make a reasonable assumption from the context). Field list:\n'+labelList+'\n\nRespond with ONLY a JSON array of strings, in the same order as the numbered list, nothing else.';
+    try{
+      var text=await askAI(sys,'Draft the answers now.');
+      var m=text.match(/\[[\s\S]*\]/);
+      if(!m) throw new Error('NO_JSON');
+      var arr=JSON.parse(m[0]);
+      var filled=0;
+      targets.forEach(function(t,i){
+        if(arr[i]){ t.el.value=arr[i]; t.el.classList.add('pib-drafted'); filled++; }
+      });
+      addMsg('PI Buddy','Drafted '+filled+' field'+(filled===1?'':'s')+' — highlighted in purple. Review and adjust before you rely on them; I filled in my best inference where the context was thin.');
+      if(btn) btn.remove();
+    }catch(err){
+      addMsg('PI Buddy','Could not draft answers right now ('+(err.message||'error')+'). You can still ask me questions below.');
+      if(btn){ btn.disabled=false; btn.textContent='✏️ Draft first-pass answers for me'; }
+    }
+  }
+
+  async function sendChat(){
+    var input=document.getElementById('pib-panel-input');
+    var q=input.value.trim();
+    if(!q) return;
+    var allowSearch=document.getElementById('pib-search-toggle').checked;
+    input.value='';
+    addMsg('You',q);
+    addMsg('PI Buddy','<span class="pib-loading">…thinking</span>');
+    try{
+      var text=await askAI(baseSystem(),q,allowSearch);
+      body.lastChild.querySelector('div:nth-child(2)').textContent=text;
+    }catch(err){
+      var msg=err.message==='NO_CONFIG'?'AI proxy not configured.':'Could not reach the AI proxy.';
+      body.lastChild.querySelector('div:nth-child(2)').textContent=msg;
+    }
+    body.scrollTop=body.scrollHeight;
+  }
+
+  document.getElementById('pib-coach-toggle').addEventListener('click',function(){
+    opened=!opened;
+    panel.classList.toggle('open',opened);
+    if(opened && !body.hasChildNodes()) renderInitial();
+  });
+  document.getElementById('pib-panel-close').addEventListener('click',function(){
+    opened=false; panel.classList.remove('open');
+  });
+  document.getElementById('pib-panel-send').addEventListener('click',sendChat);
+  document.getElementById('pib-panel-input').addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendChat(); }
+  });
+})();
+</script>
+</body>
+</html>
